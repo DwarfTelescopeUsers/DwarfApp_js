@@ -27,7 +27,7 @@ export default function Home() {
       }
     });
 
-    socket.addEventListener("error", (err) => {
+    socket.addEventListener("error", () => {
       setConnecting(false);
 
       setConnectionStatus(500);
@@ -78,6 +78,16 @@ export default function Home() {
               Connect to Dwarf II
             </button>
             {renderConnectionStatus()}
+          </li>
+          <li>
+            <a
+              href="/cameras"
+              className={`btn btn-primary ${
+                connectionStatus === 200 ? "" : "disabled"
+              } `}
+            >
+              View Cameras
+            </a>
           </li>
         </ol>
       </main>
