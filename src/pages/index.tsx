@@ -2,12 +2,7 @@ import Head from "next/head";
 import { useState } from "react";
 import Link from "next/link";
 
-import {
-  URI,
-  cameraStatus,
-  statusTelephotoCmd,
-  setupGoto,
-} from "@/lib/dwarf_api";
+import { URI, cameraStatus, statusTelephotoCmd } from "@/lib/dwarf_api";
 
 export default function Home() {
   const [connectionStatus, setConnectionStatus] = useState<number | null>(null);
@@ -53,28 +48,6 @@ export default function Home() {
     return <span>Connection successful.</span>;
   }
 
-  function gotoCalibratation() {
-    let lat = localStorage.getItem("latitude");
-    let lon = localStorage.getItem("longitude");
-    if (!lat || !lon) {
-      return;
-    }
-    const socket = new WebSocket(URI);
-
-    socket.addEventListener("open", () => {
-      setupGoto(socket, lat, lon);
-    });
-
-    socket.addEventListener("message", (event) => {
-      let message = JSON.parse(event.data);
-      console.log(message);
-    });
-
-    socket.addEventListener("error", (err) => {
-      console.log(err);
-    });
-  }
-
   return (
     <>
       <Head>
@@ -116,9 +89,7 @@ export default function Home() {
           </Link>
         </li>
         <li className="mb-2">
-          <button onClick={gotoCalibratation} className="btn btn-primary me-3">
-            Goto Calibratation
-          </button>
+          <Link href="/calibrate-goto">Calibrate Goto</Link>
         </li>
       </ol>
     </>
