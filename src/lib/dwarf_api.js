@@ -251,8 +251,8 @@ export function startGoto(
   planet,
   rightAscension,
   declination,
-  longitude,
-  latitude
+  latitude,
+  longitude
 ) {
   console.log("start goto...");
   let options = {
@@ -263,7 +263,7 @@ export function startGoto(
     date: now(),
     path: "DWARF_GOTO_timestamp",
   };
-  if (planet !== undefined) {
+  if (planet !== undefined && planet !== null) {
     options.planet = planet;
   } else {
     options.ra = rightAscension;
