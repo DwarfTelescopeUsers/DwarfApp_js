@@ -26,10 +26,9 @@ export default function Home() {
       setConnecting(false);
 
       let message = JSON.parse(event.data);
+      console.log(message);
       if (message.interface === statusTelephotoCmd) {
         setConnectionStatus(200);
-      } else {
-        setConnectionStatus(500);
       }
     });
 

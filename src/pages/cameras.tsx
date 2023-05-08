@@ -26,8 +26,6 @@ export default function Camerass() {
       let message = JSON.parse(event.data);
       if (message.interface === statusTelephotoCmd) {
         setConnectionStatus(200);
-      } else {
-        setConnectionStatus(500);
       }
     });
 
