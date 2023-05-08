@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { useState } from "react";
+import Link from "next/link";
 
 import { URI, cameraStatus, statusTelephotoCmd } from "@/lib/dwarf_api";
 
@@ -53,44 +54,42 @@ export default function Home() {
       <Head>
         <title>Dwarf II Demo</title>
       </Head>
-      <main className="container">
-        <h1>Dwarf II Demo</h1>
-        <p>
-          This website connects to the Dwarf II telescope via the Dwarf II API.
-          The Dwarf II API and this website are very much in beta phase, so this
-          website has limited functionality.
-        </p>
-        <h2>Instructions</h2>
-        <ol>
-          <li className="mb-2">
-            In order for this site to connect to the Dwarf II, both the Dwarf II
-            and the website must use the Dwarf II wifi. Use the Dwarf II mobile
-            app to connect to the telescope using the Dwarf II wifi. Visit this
-            site on a device that is connected to the Dwarf II wifi.
-          </li>
-          <li className="mb-2">
-            <a href="/set-location" className="btn btn-primary">
-              Set location
-            </a>
-          </li>
-          <li className="mb-2">
-            <button onClick={checkConnection} className="btn btn-primary me-3">
-              Connect to Dwarf II
-            </button>
-            {renderConnectionStatus()}
-          </li>
-          <li>
-            <a
-              href="/cameras"
-              className={`btn btn-primary ${
-                connectionStatus === 200 ? "" : "disabled"
-              } `}
-            >
-              View Cameras
-            </a>
-          </li>
-        </ol>
-      </main>
+      <h1>Dwarf II Demo</h1>
+      <p>
+        This website connects to the Dwarf II telescope via the Dwarf II API.
+        The Dwarf II API and this website are very much in beta phase, so this
+        website has limited functionality.
+      </p>
+      <h2>Instructions</h2>
+      <ol>
+        <li className="mb-2">
+          In order for this site to connect to the Dwarf II, both the Dwarf II
+          and the website must use the Dwarf II wifi. Use the Dwarf II mobile
+          app to connect to the telescope using the Dwarf II wifi. Visit this
+          site on a device that is connected to the Dwarf II wifi.
+        </li>
+        <li className="mb-2">
+          <Link href="/set-location" className="btn btn-primary">
+            Set location
+          </Link>
+        </li>
+        <li className="mb-2">
+          <button onClick={checkConnection} className="btn btn-primary me-3">
+            Connect to Dwarf II
+          </button>
+          {renderConnectionStatus()}
+        </li>
+        <li>
+          <Link
+            href="/cameras"
+            className={`btn btn-primary ${
+              connectionStatus === 200 ? "" : "disabled"
+            } `}
+          >
+            View Cameras
+          </Link>
+        </li>
+      </ol>
     </>
   );
 }

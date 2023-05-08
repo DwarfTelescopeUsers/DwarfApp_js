@@ -40,55 +40,55 @@ export default function SetLocation() {
       <Head>
         <title>Set Location</title>
       </Head>
-      <main className="container">
-        <h1>Set Location</h1>
-        <p>
-          If you plan on taking astronomy photos, this site needs your latitude
-          and longitude.
-        </p>
-        {renderCoordinates()}
+      <h1>Set Location</h1>
+      <p>
+        If you plan on taking astronomy photos, this site needs your latitude
+        and longitude.
+      </p>
+      {renderCoordinates()}
 
-        <h2>Option 1</h2>
-        <p>Allow website to access your location.</p>
-        <button className="btn btn-primary" onClick={browserCoordinates}>
-          Allow
-        </button>
-        <h2 className="mt-3">Option 2</h2>
-        <p>Enter in your coordinates.</p>
-        <form onSubmit={userCoordinates}>
-          <div className="row mb-3">
-            <div className="col">
-              <label htmlFor="latitude" className="form-label">
-                Latitude
-              </label>
-              <input
-                pattern="^-?\d*(\.\d+)?$"
-                className="form-control"
-                id="latitude"
-                name="latitude"
-                placeholder="-12.3456"
-              />
-            </div>
-
-            <div className="col">
-              <label htmlFor="longitude" className="form-label">
-                Longitude
-              </label>
-              <input
-                pattern="^-?\d*(\.\d+)?$"
-                className="form-control"
-                id="longitude"
-                name="longitude"
-                placeholder="56.7890"
-              />
-            </div>
+      <h2>Option 1</h2>
+      <p>Allow website to access your location.</p>
+      <button className="btn btn-primary" onClick={browserCoordinates}>
+        Allow
+      </button>
+      <h2 className="mt-3">Option 2</h2>
+      <p>Enter in your coordinates.</p>
+      <form onSubmit={userCoordinates}>
+        <div className="row mb-3">
+          <div className="col">
+            <label htmlFor="latitude" className="form-label">
+              Latitude
+            </label>
+            <input
+              pattern="^-?\d*(\.\d+)?$"
+              className="form-control"
+              id="latitude"
+              name="latitude"
+              placeholder="-12.3456"
+              required
+            />
           </div>
 
-          <button type="submit" className="btn btn-primary">
-            Submit
-          </button>
-        </form>
-      </main>
+          <div className="col">
+            <label htmlFor="longitude" className="form-label">
+              Longitude
+            </label>
+            <input
+              pattern="^-?\d*(\.\d+)?$"
+              className="form-control"
+              id="longitude"
+              name="longitude"
+              placeholder="56.7890"
+              required
+            />
+          </div>
+        </div>
+
+        <button type="submit" className="btn btn-primary">
+          Submit
+        </button>
+      </form>
     </>
   );
 }

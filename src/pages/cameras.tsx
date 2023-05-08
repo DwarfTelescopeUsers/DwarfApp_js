@@ -75,11 +75,9 @@ export default function Camerass() {
       <Head>
         <title>Dwarf II Cameras</title>
       </Head>
-      <main className="container">
-        <h1>Dwarf II Cameras</h1>
+      <h1>Dwarf II Cameras</h1>
 
-        <p>You must connected to the Dwarf II in order to view the cameras.</p>
-      </main>
+      <p>You must connected to the Dwarf II in order to view the cameras.</p>
     </>
   );
 }
