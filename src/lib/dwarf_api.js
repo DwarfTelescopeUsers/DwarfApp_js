@@ -377,5 +377,6 @@ export function setRawPreview(
 }
 
 function socketSend(socket, command) {
+  console.log("send", command);
   socket.send(JSON.stringify(command));
 }
