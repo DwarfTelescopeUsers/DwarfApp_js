@@ -1,35 +1,47 @@
 "use client";
-import { useEffect, useState } from "react";
 import Head from "next/head";
+import { useContext } from "react";
 import type { FormEvent } from "react";
 
 import { getCoordinates } from "@/lib/geolocation";
+import { ConnectionContext } from "@/stores/ConnectionContext";
 
 export default function SetLocation() {
-  const [latitude, setLatitude] = useState<number | null>(null);
-  const [longitude, setLongitude] = useState<number | null>(null);
+  let connectionCtx = useContext(ConnectionContext);
 
-  function browserCoordinates() {
+  function browserCoordinatesHandler() {
     getCoordinates((coords) => {
-      setLatitude(coords.latitude);
-      setLongitude(coords.longitude);
+      localStorage.setItem("latitude", coords.latitude.toString());
+      localStorage.setItem("longitude", coords.longitude.toString());
+      connectionCtx.setLatitude(coords.latitude);
+      connectionCtx.setLongitude(coords.longitude);
     });
   }
 
-  function userCoordinates(e: FormEvent<HTMLFormElement>) {
+  function userCoordinatesHandler(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
     const formData = new FormData(e.currentTarget);
-    const formLatitude = formData.get("latitude") ?? 0;
-    setLatitude(formLatitude as number);
-    const formLongitude = formData.get("longitude") ?? 0;
-    setLongitude(formLongitude as number);
+    const formLatitude = formData.get("latitude");
+    const formLongitude = formData.get("longitude");
+
+    if (formLatitude && formLongitude) {
+      localStorage.setItem("latitude", formLatitude.toString());
+      localStorage.setItem("longitude", formLongitude.toString());
+      connectionCtx.setLatitude(Number(formLatitude));
+      connectionCtx.setLongitude(Number(formLongitude));
+    }
   }
 
   function renderCoordinates() {
-    if (latitude && longitude) {
+    if (
+      typeof connectionCtx.latitude === "number" &&
+      typeof connectionCtx.longitude === "number"
+    ) {
       return (
         <p>
-          Latitude: {latitude}, Longitude: {longitude}
+          Latitude: {connectionCtx.latitude}, Longitude:{" "}
+          {connectionCtx.longitude}
         </p>
       );
     }
@@ -49,12 +61,12 @@ export default function SetLocation() {
 
       <h2>Option 1</h2>
       <p>Allow website to access your location.</p>
-      <button className="btn btn-primary" onClick={browserCoordinates}>
+      <button className="btn btn-primary" onClick={browserCoordinatesHandler}>
         Allow
       </button>
       <h2 className="mt-3">Option 2</h2>
       <p>Enter in your coordinates.</p>
-      <form onSubmit={userCoordinates}>
+      <form onSubmit={userCoordinatesHandler}>
         <div className="row mb-3">
           <div className="col">
             <label htmlFor="latitude" className="form-label">

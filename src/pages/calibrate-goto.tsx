@@ -1,20 +1,28 @@
 import Head from "next/head";
-import { useState } from "react";
+import { useState, useContext } from "react";
 
 import { URI, setupGoto } from "@/lib/dwarf_api";
+import { ConnectionContext } from "@/stores/ConnectionContext";
 
 export default function CalibrateGoto() {
+  const connectionCtx = useContext(ConnectionContext);
+
   const [status, setStatus] = useState<any>(null);
   const [connecting, setConnecting] = useState(false);
 
   function gotoCalibratation() {
     setConnecting(true);
-    let lat = localStorage.getItem("latitude");
-    let lon = localStorage.getItem("longitude");
-    if (lat === null || lon === null) {
+    let lat = connectionCtx.latitude;
+    let lon = connectionCtx.longitude;
+    if (typeof lat !== "number") {
       setStatus("Error: Latitude and longitude are not set.");
       return;
     }
+    if (typeof lon !== "number") {
+      setStatus("Error: Latitude and longitude are not set.");
+      return;
+    }
+
     setStatus(null);
 
     const socket = new WebSocket(URI);
@@ -22,7 +30,9 @@ export default function CalibrateGoto() {
     socket.addEventListener("open", () => {
       setConnecting(false);
 
-      setupGoto(socket, Number(lat as string), Number(lon as string));
+      if (typeof lat === "number" && typeof lon === "number") {
+        setupGoto(socket, lat, lon);
+      }
     });
 
     socket.addEventListener("message", (event) => {

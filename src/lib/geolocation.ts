@@ -9,9 +9,6 @@ function successHandler(
   callback: (coords: GeolocationCoordinates) => void
 ): void {
   const coords = position.coords;
-  localStorage.setItem("latitude", coords.latitude.toString());
-  localStorage.setItem("longitude", coords.longitude.toString());
-
   callback(coords);
 }
 
