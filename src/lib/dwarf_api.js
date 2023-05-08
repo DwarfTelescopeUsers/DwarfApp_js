@@ -3,40 +3,52 @@ export const wideangleURL = "http://192.168.88.1:8092/thirdstream";
 export const telephotoURL = "http://192.168.88.1:8092/mainstream";
 export const rawPreviewURL = "http://192.168.88.1:8092/rawstream";
 
+// ===============
+// 3.1 image transmission
+// ===============
+
 // camera
 const turnOnCameraCmd = 10000;
 const turnOffCameraCmd = 10017;
 
-export const statusTelephotoCmd = 10215;
-const statusWideangleCmd = 10217;
-
 export const cameraTelephoto = 0;
 export const cameraWideangle = 1;
 
-// astro photo
-const takeAstroPhotoCmd = 10011;
+// ===============
+// 3.2 photo and video
+// ===============
 
 // photo
 const takePhotoCmd = 10006;
 const photoSingleShot = 0;
 const photoContinuous = 1;
 
-// focus
-const autofocusCmd = 10211;
-const autofocusGlobal = 0;
-const autofocusArea = 1;
+// video
+const startRecordingCmd = 10007;
+const stopRecordingCmd = 10009;
 
-// goto
-const setupGotoCmd = 11205;
-const startGotoCmd = 11203;
-const Mercury = 0;
-const Venus = 1;
-const Mars = 2;
-const Jupiter = 3;
-const Saturn = 4;
-const Uranus = 5;
-const Neptune = 6;
-const Moon = 7;
+// timelapse photos
+const startTimelapseCmd = 10018;
+const stopTimelapseCmd = 10019;
+
+// ===============
+// 3.3 ISP settings
+// ===============
+
+// brightness
+const setBrightnessValueCmd = 10204;
+
+// contrast
+const setContrastValueCmd = 10205;
+
+// saturation
+const setSaturationValueCmd = 10206;
+
+// hue
+const setHueValueCmd = 10207;
+
+// sharpness
+const setSharpnessValueCmd = 10208;
 
 // exposure
 const setExposureModeCmd = 10001;
@@ -46,16 +58,58 @@ const setExposureValueCmd = 10003;
 const setGainModeCmd = 10004;
 const setGainValueCmd = 10005;
 
+// autofocus
+const autofocusCmd = 10211;
+const autofocusGlobal = 0;
+const autofocusArea = 1;
+
+// whitebalance
+const setWBModeCmd = 10212;
+const setWBScenceCmd = 10213;
+const setWBColorCmd = 10214;
+
 // IR
 const setIRCmd = 10203;
 const IRCut = 0;
 const IRPass = 3;
 
-// binning
+// ===============
+// 3.4 status
+// ===============
+
+// telephoto
+export const statusTelephotoCmd = 10215;
+const statusIRTelephotoCmd = 10216;
+const statusWorkingStateTelephotoCmd = 10022;
+
+// wideangle
+const statusWideangleCmd = 10217;
+
+// ===============
+// 4.1 Astro
+// ===============
+
+// goto
+const setupGotoCmd = 11205;
+
+const startGotoCmd = 11203;
+
+const Mercury = 0;
+const Venus = 1;
+const Mars = 2;
+const Jupiter = 3;
+const Saturn = 4;
+const Uranus = 5;
+const Neptune = 6;
+const Moon = 7;
+
+// RAW astro photo
+const takeAstroPhotoCmd = 10011;
+const stopAstroPhotoCmd = 10015;
+
 const binning1x1 = 0;
 const binning2x2 = 1;
 
-// file format
 const fileFits = 0;
 const fileTiff = 1;
 
@@ -64,6 +118,57 @@ const setRawPreviewCmd = 10020;
 const rawPreviewContinousSuperimpose = 0;
 const rawPreviewSingle15 = 1;
 const rawPreviewSingleComposite = 2;
+
+// astro dark frames
+const takeAstroDarkFramesCmd = 10026;
+
+// query shot field
+const queryShotFieldCmd = 10026;
+
+// ===============
+// 4.2 tracking
+// ===============
+
+const traceInitCmd = 11200;
+const startTrackingCmd = 11201;
+const stopTrackingCmd = 11202;
+
+// ===============
+// 4.3 panoromic
+// ===============
+
+const startPanoCmd = 10103;
+const stopPanoCmd = 10106;
+
+// ===============
+// 5 motion control
+// ===============
+
+const startMotionCmd = 10100;
+const stopMotionCmd = 10101;
+const setSpeedCmd = 10107;
+const setDirectionCmd = 10108;
+const setSubdivideCmd = 10109;
+
+// ===============
+// 7.1 system status
+// ===============
+
+const systemStatusCmd = 11407;
+
+// ===============
+// 7.2 microsd card status
+// ===============
+
+const microsdStatusCmd = 11405;
+const microsdAvailableCmd = 11409;
+
+// ===============
+// 7.4 dwarf status
+// ===============
+
+const dwarfSoftwareVersionCmd = 11410;
+const dwarfChargingStatusCmd = 11011;
 
 function now() {
   return new Date().toISOString().replace("T", " ").slice(0, 19);
