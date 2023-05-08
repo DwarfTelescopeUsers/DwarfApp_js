@@ -9,7 +9,6 @@ import { ConnectionContext } from "@/stores/ConnectionContext";
 export default function Home() {
   let connectionCtx = useContext(ConnectionContext);
 
-  // const [connectionStatus, setConnectionStatus] = useState<number | null>(null);
   const [connecting, setConnecting] = useState(false);
 
   function checkConnection() {
@@ -52,6 +51,20 @@ export default function Home() {
     return <span>Connection successful.</span>;
   }
 
+  function renderCoordinates() {
+    if (
+      typeof connectionCtx.latitude === "number" &&
+      typeof connectionCtx.longitude === "number"
+    ) {
+      return (
+        <p>
+          Latitude: {connectionCtx.latitude}, Longitude:{" "}
+          {connectionCtx.longitude}
+        </p>
+      );
+    }
+  }
+
   return (
     <>
       <Head>
@@ -73,6 +86,7 @@ export default function Home() {
         </li>
         <li className="mb-2">
           <Link href="/set-location">Set location</Link>
+          {renderCoordinates()}
         </li>
         <li className="mb-2">
           <button onClick={checkConnection} className="btn btn-primary me-3">
