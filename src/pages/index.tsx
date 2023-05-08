@@ -1,11 +1,15 @@
 import Head from "next/head";
+import { useContext } from "react";
 import { useState } from "react";
 import Link from "next/link";
 
 import { URI, cameraStatus, statusTelephotoCmd } from "@/lib/dwarf_api";
+import { ConnectionContext } from "@/stores/ConnectionContext";
 
 export default function Home() {
-  const [connectionStatus, setConnectionStatus] = useState<number | null>(null);
+  let connectionCtx = useContext(ConnectionContext);
+
+  // const [connectionStatus, setConnectionStatus] = useState<number | null>(null);
   const [connecting, setConnecting] = useState(false);
 
   function checkConnection() {
@@ -23,14 +27,14 @@ export default function Home() {
       let message = JSON.parse(event.data);
       console.log(message);
       if (message.interface === statusTelephotoCmd) {
-        setConnectionStatus(200);
+        connectionCtx.setConnectionStatus(200);
       }
     });
 
     socket.addEventListener("error", () => {
       setConnecting(false);
 
-      setConnectionStatus(500);
+      connectionCtx.setConnectionStatus(500);
     });
   }
 
@@ -38,10 +42,10 @@ export default function Home() {
     if (connecting) {
       return <span>Connecting...</span>;
     }
-    if (connectionStatus === null) {
+    if (connectionCtx.connectionStatus === null) {
       return <></>;
     }
-    if (connectionStatus === 500) {
+    if (connectionCtx.connectionStatus === 500) {
       return <span>Connection failed.</span>;
     }
 
@@ -77,12 +81,12 @@ export default function Home() {
           {renderConnectionStatus()}
         </li>
 
-        {connectionStatus === 200 && (
+        {connectionCtx.connectionStatus === 200 && (
           <li className="mb-2">
             <Link href="/cameras">View Cameras</Link>
           </li>
         )}
-        {connectionStatus === 200 && (
+        {connectionCtx.connectionStatus === 200 && (
           <li className="mb-2">
             <Link href="/calibrate-goto">Calibrate Goto</Link>
           </li>

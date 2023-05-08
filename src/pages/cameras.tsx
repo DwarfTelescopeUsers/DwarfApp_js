@@ -1,41 +1,13 @@
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useContext } from "react";
 
-import {
-  URI,
-  cameraStatus,
-  statusTelephotoCmd,
-  wideangleURL,
-  telephotoURL,
-} from "@/lib/dwarf_api";
+import { wideangleURL, telephotoURL } from "@/lib/dwarf_api";
+import { ConnectionContext } from "@/stores/ConnectionContext";
 
 export default function Camerass() {
-  const [connectionStatus, setConnectionStatus] = useState<number | null>(null);
+  const connectionCtx = useContext(ConnectionContext);
 
-  useEffect(() => {
-    checkConnection();
-  }, []);
-
-  function checkConnection() {
-    const socket = new WebSocket(URI);
-    socket.addEventListener("open", () => {
-      cameraStatus(socket);
-    });
-
-    socket.addEventListener("message", (event) => {
-      let message = JSON.parse(event.data);
-      if (message.interface === statusTelephotoCmd) {
-        setConnectionStatus(200);
-      }
-    });
-
-    socket.addEventListener("error", (err) => {
-      console.log(err);
-      setConnectionStatus(500);
-    });
-  }
-
-  if (connectionStatus === 200) {
+  if (connectionCtx.connectionStatus === 200) {
     return (
       <>
         <Head>
