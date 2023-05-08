@@ -68,9 +68,7 @@ export default function Home() {
           site on a device that is connected to the Dwarf II wifi.
         </li>
         <li className="mb-2">
-          <Link href="/set-location" className="btn btn-primary">
-            Set location
-          </Link>
+          <Link href="/set-location">Set location</Link>
         </li>
         <li className="mb-2">
           <button onClick={checkConnection} className="btn btn-primary me-3">
@@ -78,19 +76,17 @@ export default function Home() {
           </button>
           {renderConnectionStatus()}
         </li>
-        <li>
-          <Link
-            href="/cameras"
-            className={`btn btn-primary ${
-              connectionStatus === 200 ? "" : "disabled"
-            } `}
-          >
-            View Cameras
-          </Link>
-        </li>
-        <li className="mb-2">
-          <Link href="/calibrate-goto">Calibrate Goto</Link>
-        </li>
+
+        {connectionStatus === 200 && (
+          <li className="mb-2">
+            <Link href="/cameras">View Cameras</Link>
+          </li>
+        )}
+        {connectionStatus === 200 && (
+          <li className="mb-2">
+            <Link href="/calibrate-goto">Calibrate Goto</Link>
+          </li>
+        )}
       </ol>
     </>
   );
