@@ -58,10 +58,12 @@ export default function CalibrateGoto() {
       <h1>Calibrate Goto</h1>
       <h2>Instructions</h2>
       <ol>
-        <li className="mb-2">Focus the Dwarf II</li>
         <li className="mb-2">
-          Point the telescope towards an area of the sky where stars, planets,
-          or the Moon are visible.
+          Focus the Dwarf II using the mobile app from Dwarf Labs.
+        </li>
+        <li className="mb-2">
+          Point the telescope lens towards an area of the sky where stars,
+          planets, or the Moon are visible.
         </li>
         <li className="mb-2">
           <button className="btn btn-primary me-3" onClick={gotoCalibratation}>
