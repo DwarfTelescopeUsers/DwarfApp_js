@@ -11,7 +11,7 @@ export default function CalibrateGoto() {
     setConnecting(true);
     let lat = localStorage.getItem("latitude");
     let lon = localStorage.getItem("longitude");
-    if (!lat || !lon) {
+    if (lat === null || lon === null) {
       setStatus("Error: Latitude and longitude are not set.");
       return;
     }
@@ -22,7 +22,7 @@ export default function CalibrateGoto() {
     socket.addEventListener("open", () => {
       setConnecting(false);
 
-      setupGoto(socket, lat, lon);
+      setupGoto(socket, Number(lat as string), Number(lon as string));
     });
 
     socket.addEventListener("message", (event) => {

@@ -170,22 +170,31 @@ const microsdAvailableCmd = 11409;
 const dwarfSoftwareVersionCmd = 11410;
 const dwarfChargingStatusCmd = 11011;
 
-function now() {
+function now(): string {
   return new Date().toISOString().replace("T", " ").slice(0, 19);
 }
 
-export function turnOnCamera(socket, camera = cameraTelephoto) {
+export function turnOnCamera(
+  socket: WebSocket,
+  camera = cameraTelephoto
+): void {
   console.log("turn on camera...");
   socketSend(socket, { interface: turnOnCameraCmd, camId: camera });
 }
 
-export function turnOffCamera(socket, camera = cameraTelephoto) {
+export function turnOffCamera(
+  socket: WebSocket,
+  camera = cameraTelephoto
+): void {
   console.log("turn off camera...");
   let options = { interface: turnOffCameraCmd, camId: camera };
   socketSend(socket, options);
 }
 
-export function cameraStatus(socket, camera = cameraTelephoto) {
+export function cameraStatus(
+  socket: WebSocket,
+  camera = cameraTelephoto
+): void {
   console.log("camera status...");
   let command;
   if (camera === cameraTelephoto) {
@@ -198,12 +207,12 @@ export function cameraStatus(socket, camera = cameraTelephoto) {
 }
 
 export function takePhoto(
-  socket,
+  socket: WebSocket,
   camera = cameraTelephoto,
   photoMode = photoSingleShot,
   count = 2,
   name = `Photo ${new Date()}`
-) {
+): void {
   console.log("take photos...");
   let options = {
     interface: takePhotoCmd,
@@ -216,12 +225,12 @@ export function takePhoto(
 }
 
 export function autoFocus(
-  socket,
-  camera,
+  socket: WebSocket,
+  camera = cameraTelephoto,
   focusMode = autofocusArea,
   x = 0,
   y = 0
-) {
+): void {
   console.log("autofocus...");
   let options = {
     interface: autofocusCmd,
@@ -233,7 +242,11 @@ export function autoFocus(
   socketSend(socket, options);
 }
 
-export function setupGoto(socket, latitude, longitude) {
+export function setupGoto(
+  socket: WebSocket,
+  latitude: number,
+  longitude: number
+) {
   console.log("setup goto...");
   let options = {
     interface: setupGotoCmd,
@@ -247,13 +260,13 @@ export function setupGoto(socket, latitude, longitude) {
 }
 
 export function startGoto(
-  socket,
-  planet,
-  rightAscension,
-  declination,
-  latitude,
-  longitude
-) {
+  socket: WebSocket,
+  planet: null | number,
+  rightAscension: number,
+  declination: number,
+  latitude: number,
+  longitude: number
+): void {
   console.log("start goto...");
   let options = {
     interface: startGotoCmd,
@@ -262,7 +275,8 @@ export function startGoto(
     lat: latitude,
     date: now(),
     path: "DWARF_GOTO_timestamp",
-  };
+  } as { [k: string]: any };
+
   if (planet !== undefined && planet !== null) {
     options.planet = planet;
   } else {
@@ -273,10 +287,10 @@ export function startGoto(
 }
 
 export function setExposureMode(
-  socket,
+  socket: WebSocket,
   camera = cameraTelephoto,
   mode = "manual"
-) {
+): void {
   console.log("set exposure mode...");
   let modeId;
   if (camera === cameraTelephoto) {
@@ -293,7 +307,11 @@ export function setExposureMode(
   socketSend(socket, options);
 }
 
-export function setExposure(socket, camera = cameraTelephoto, exposureTime) {
+export function setExposure(
+  socket: WebSocket,
+  camera = cameraTelephoto,
+  exposureTime: number
+): void {
   console.log("set exposure value...");
   let options = {
     interface: setExposureValueCmd,
@@ -303,7 +321,11 @@ export function setExposure(socket, camera = cameraTelephoto, exposureTime) {
   socketSend(socket, options);
 }
 
-export function setGainMode(socket, camera = cameraTelephoto, mode = "manual") {
+export function setGainMode(
+  socket: WebSocket,
+  camera = cameraTelephoto,
+  mode = "manual"
+): void {
   console.log("set gain mode...");
 
   let modeId = mode === "manual" ? 1 : 0;
@@ -315,7 +337,11 @@ export function setGainMode(socket, camera = cameraTelephoto, mode = "manual") {
   socketSend(socket, options);
 }
 
-export function setGain(socket, camera = cameraTelephoto, gainValue) {
+export function setGain(
+  socket: WebSocket,
+  camera = cameraTelephoto,
+  gainValue: number
+): void {
   console.log("set gain value...");
   let options = {
     interface: setGainValueCmd,
@@ -325,7 +351,7 @@ export function setGain(socket, camera = cameraTelephoto, gainValue) {
   socketSend(socket, options);
 }
 
-export function setIR(socket, irValue = IRCut) {
+export function setIR(socket: WebSocket, irValue = IRCut): void {
   console.log("set IR value...");
   let options = {
     interface: setIRCmd,
@@ -336,13 +362,13 @@ export function setIR(socket, irValue = IRCut) {
 }
 
 export function takeAstroPhoto(
-  socket,
-  rightAscension,
-  declination,
-  exposureTime,
-  gainValue,
+  socket: WebSocket,
+  rightAscension: number,
+  declination: number,
+  exposureTime: number,
+  gainValue: number,
   binningValue = binning2x2,
-  count,
+  count: number,
   fileFormat = fileTiff
 ) {
   console.log("take astro photo...");
@@ -364,9 +390,9 @@ export function takeAstroPhoto(
 }
 
 export function setRawPreview(
-  socket,
+  socket: WebSocket,
   previewMode = rawPreviewContinousSuperimpose
-) {
+): void {
   console.log("set RAW preview...");
   let options = {
     interface: setRawPreviewCmd,
@@ -376,7 +402,7 @@ export function setRawPreview(
   socketSend(socket, options);
 }
 
-function socketSend(socket, command) {
+function socketSend(socket: WebSocket, command: { [k: string]: any }): void {
   console.log("send", command);
   socket.send(JSON.stringify(command));
 }
