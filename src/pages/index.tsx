@@ -1,15 +1,21 @@
 import Head from "next/head";
-import { useContext } from "react";
-import { useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import Link from "next/link";
+import { CoordinatesData } from "@/types";
 
 import { URI, cameraStatus, statusTelephotoCmd } from "@/lib/dwarf_api";
 import { ConnectionContext } from "@/stores/ConnectionContext";
+import { fetchCoordinates } from "@/db/data_utils";
 
 export default function Home() {
   let connectionCtx = useContext(ConnectionContext);
 
   const [connecting, setConnecting] = useState(false);
+  const [coordinates, setCoordinates] = useState<CoordinatesData>();
+
+  useEffect(() => {
+    setCoordinates(fetchCoordinates(connectionCtx));
+  }, [connectionCtx]);
 
   function checkConnection() {
     setConnecting(true);
@@ -52,14 +58,10 @@ export default function Home() {
   }
 
   function renderCoordinates() {
-    if (
-      typeof connectionCtx.latitude === "number" &&
-      typeof connectionCtx.longitude === "number"
-    ) {
+    if (coordinates) {
       return (
         <p>
-          Latitude: {connectionCtx.latitude}, Longitude:{" "}
-          {connectionCtx.longitude}
+          Latitude: {coordinates.latitude}, Longitude: {coordinates.longitude}
         </p>
       );
     }
@@ -86,7 +88,7 @@ export default function Home() {
         </li>
         <li className="mb-2">
           <Link href="/set-location">Set location</Link>
-          {renderCoordinates()}
+          {coordinates && renderCoordinates()}
         </li>
         <li className="mb-2">
           <button onClick={checkConnection} className="btn btn-primary me-3">

@@ -1,8 +1,13 @@
 export type ConnectionContextType = {
-  connectionStatus: number | null;
-  setConnectionStatus: React.Dispatch<React.SetStateAction<number | null>>;
-  latitude: number | null;
-  setLatitude: React.Dispatch<React.SetStateAction<number | null>>;
-  longitude: number | null;
-  setLongitude: React.Dispatch<React.SetStateAction<number | null>>;
+  connectionStatus: number | undefined;
+  setConnectionStatus: React.Dispatch<React.SetStateAction<number | undefined>>;
+  latitude: number | undefined;
+  setLatitude: React.Dispatch<React.SetStateAction<number | undefined>>;
+  longitude: number | undefined;
+  setLongitude: React.Dispatch<React.SetStateAction<number | undefined>>;
+};
+
+export type CoordinatesData = {
+  latitude?: number;
+  longitude?: number;
 };

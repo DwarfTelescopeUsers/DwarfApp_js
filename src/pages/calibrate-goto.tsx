@@ -1,37 +1,43 @@
 import Head from "next/head";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
+import Link from "next/link";
 
 import { URI, setupGoto } from "@/lib/dwarf_api";
 import { ConnectionContext } from "@/stores/ConnectionContext";
+import { CoordinatesData } from "@/types";
+import { fetchCoordinates, isNumber } from "@/db/data_utils";
 
 export default function CalibrateGoto() {
   const connectionCtx = useContext(ConnectionContext);
 
   const [status, setStatus] = useState<any>(null);
   const [connecting, setConnecting] = useState(false);
+  const [coordinates, setCoordinates] = useState<CoordinatesData>();
+
+  useEffect(() => {
+    setCoordinates(fetchCoordinates(connectionCtx));
+  }, [connectionCtx]);
 
   function gotoCalibratation() {
     setConnecting(true);
-    let lat = connectionCtx.latitude;
-    let lon = connectionCtx.longitude;
-    if (typeof lat !== "number") {
+    let lat = coordinates?.latitude;
+    let lon = coordinates?.longitude;
+    if (lat === undefined) {
       setStatus("Error: Latitude and longitude are not set.");
       return;
     }
-    if (typeof lon !== "number") {
+    if (lon === undefined) {
       setStatus("Error: Latitude and longitude are not set.");
       return;
     }
-
-    setStatus(null);
 
     const socket = new WebSocket(URI);
 
     socket.addEventListener("open", () => {
       setConnecting(false);
 
-      if (typeof lat === "number" && typeof lon === "number") {
-        setupGoto(socket, lat, lon);
+      if (isNumber(lat) && isNumber(lon)) {
+        setupGoto(socket, lat as number, lon as number);
       }
     });
 
@@ -58,6 +64,9 @@ export default function CalibrateGoto() {
       <h1>Calibrate Goto</h1>
       <h2>Instructions</h2>
       <ol>
+        <li className="mb-2">
+          <Link href="/set-location">Set the location</Link> for this website.
+        </li>
         <li className="mb-2">
           Focus the Dwarf II using the mobile app from Dwarf Labs.
         </li>

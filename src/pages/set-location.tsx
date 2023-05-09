@@ -5,14 +5,15 @@ import type { FormEvent } from "react";
 
 import { getCoordinates } from "@/lib/geolocation";
 import { ConnectionContext } from "@/stores/ConnectionContext";
+import { saveCoordinatesDB } from "@/db/db_utils";
+import { isNumber } from "@/db/data_utils";
 
 export default function SetLocation() {
   let connectionCtx = useContext(ConnectionContext);
 
   function browserCoordinatesHandler() {
     getCoordinates((coords) => {
-      localStorage.setItem("latitude", coords.latitude.toString());
-      localStorage.setItem("longitude", coords.longitude.toString());
+      saveCoordinatesDB(coords.latitude, coords.longitude);
       connectionCtx.setLatitude(coords.latitude);
       connectionCtx.setLongitude(coords.longitude);
     });
@@ -26,18 +27,14 @@ export default function SetLocation() {
     const formLongitude = formData.get("longitude");
 
     if (formLatitude && formLongitude) {
-      localStorage.setItem("latitude", formLatitude.toString());
-      localStorage.setItem("longitude", formLongitude.toString());
+      saveCoordinatesDB(Number(formLatitude), Number(formLongitude));
       connectionCtx.setLatitude(Number(formLatitude));
       connectionCtx.setLongitude(Number(formLongitude));
     }
   }
 
   function renderCoordinates() {
-    if (
-      typeof connectionCtx.latitude === "number" &&
-      typeof connectionCtx.longitude === "number"
-    ) {
+    if (isNumber(connectionCtx.latitude) && isNumber(connectionCtx.longitude)) {
       return (
         <p>
           Latitude: {connectionCtx.latitude}, Longitude:{" "}
