@@ -111,6 +111,11 @@ export default function Home() {
             <Link href="/calibrate-goto">Calibrate Goto</Link>
           </li>
         )}
+        {connectionStatus && (
+          <li className="mb-2">
+            <Link href="/astro-photos">Astro photos</Link>
+          </li>
+        )}
       </ol>
     </>
   );
