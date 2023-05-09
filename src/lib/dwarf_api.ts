@@ -1,7 +1,8 @@
-export const URI = "ws://192.168.88.1:9900";
-export const wideangleURL = "http://192.168.88.1:8092/thirdstream";
-export const telephotoURL = "http://192.168.88.1:8092/mainstream";
-export const rawPreviewURL = "http://192.168.88.1:8092/rawstream";
+const IP = "192.168.88.1";
+export const URI = `ws://${IP}:9900`;
+export const wideangleURL = `http://${IP}:8092/thirdstream`;
+export const telephotoURL = `http://${IP}:8092/mainstream`;
+export const rawPreviewURL = `http://${IP}:8092/rawstream`;
 
 // ===============
 // 3.1 image transmission
