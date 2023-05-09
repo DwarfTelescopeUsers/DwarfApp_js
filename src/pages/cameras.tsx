@@ -4,7 +4,10 @@ import { useContext, useEffect, useState } from "react";
 import {
   wideangleURL,
   telephotoURL,
+  turnOnCamera,
   URI,
+  cameraTelephoto,
+  cameraWideangle,
 } from "@/lib/dwarf_api";
 import { ConnectionContext } from "@/stores/ConnectionContext";
 import { fetchConnectionStatus } from "@/db/data_utils";
@@ -15,7 +18,28 @@ export default function Cameras() {
 
   useEffect(() => {
     setConnectionStatus(fetchConnectionStatus(connectionCtx));
+
+    turnOnBothCameras();
   }, [connectionCtx]);
+
+  function turnOnBothCameras() {
+    let socket = new WebSocket(URI);
+    console.log(" turnOnBothCameras");
+
+    socket.addEventListener("open", () => {
+      turnOnCamera(socket, cameraTelephoto);
+      turnOnCamera(socket, cameraWideangle);
+    });
+
+    socket.addEventListener("message", (event) => {
+      let message = JSON.parse(event.data);
+      console.log(message);
+    });
+
+    socket.addEventListener("error", (error) => {
+      console.log(error);
+    });
+  }
 
   if (connectionStatus) {
     return (
