@@ -12,3 +12,14 @@ export function saveCoordinatesDB(latitude: number, longitude: number) {
   localStorage.setItem("latitude", latitude.toString());
   localStorage.setItem("longitude", longitude.toString());
 }
+
+export function fetchConnectionStatusDB() {
+  let status = localStorage.getItem("connectionStatus");
+  if (status) {
+    return { connectionStatus: status === "true" };
+  }
+}
+
+export function saveConnectionStatusDB(status: boolean) {
+  localStorage.setItem("connectionStatus", status ? "true" : "false");
+}

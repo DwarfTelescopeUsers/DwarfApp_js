@@ -12,7 +12,7 @@ export const ConnectionContext = createContext<ConnectionContextType>(
 
 export function ConnectionContextProvider({ children }: ProviderProps) {
   const [connectionStatus, setConnectionStatus] = useState<
-    number | undefined
+    boolean | undefined
   >();
   const [latitude, setLatitude] = useState<number | undefined>();
   const [longitude, setLongitude] = useState<number | undefined>();

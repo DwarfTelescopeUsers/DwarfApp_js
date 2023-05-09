@@ -1,4 +1,4 @@
-import { fetchCoordinatesDB } from "@/db/db_utils";
+import { fetchCoordinatesDB, fetchConnectionStatusDB } from "@/db/db_utils";
 import { ConnectionContextType, CoordinatesData } from "@/types";
 
 export function fetchCoordinates(
@@ -22,6 +22,18 @@ export function fetchCoordinates(
 
   if (Object.keys(data).length > 0) {
     return data;
+  }
+}
+
+export function fetchConnectionStatus(
+  connectionCtx: ConnectionContextType
+): boolean | undefined {
+  let status = fetchConnectionStatusDB();
+
+  if (connectionCtx.connectionStatus !== null) {
+    return connectionCtx.connectionStatus;
+  } else if (status !== undefined) {
+    return status.connectionStatus;
   }
 }
 

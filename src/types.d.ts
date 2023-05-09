@@ -1,6 +1,8 @@
 export type ConnectionContextType = {
-  connectionStatus: number | undefined;
-  setConnectionStatus: React.Dispatch<React.SetStateAction<number | undefined>>;
+  connectionStatus: boolean | undefined;
+  setConnectionStatus: React.Dispatch<
+    React.SetStateAction<boolean | undefined>
+  >;
   latitude: number | undefined;
   setLatitude: React.Dispatch<React.SetStateAction<number | undefined>>;
   longitude: number | undefined;

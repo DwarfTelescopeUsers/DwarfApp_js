@@ -1,13 +1,23 @@
 import Head from "next/head";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 
-import { wideangleURL, telephotoURL } from "@/lib/dwarf_api";
+import {
+  wideangleURL,
+  telephotoURL,
+  URI,
+} from "@/lib/dwarf_api";
 import { ConnectionContext } from "@/stores/ConnectionContext";
+import { fetchConnectionStatus } from "@/db/data_utils";
 
-export default function Camerass() {
+export default function Cameras() {
   const connectionCtx = useContext(ConnectionContext);
+  const [connectionStatus, setConnectionStatus] = useState<boolean>();
 
-  if (connectionCtx.connectionStatus === 200) {
+  useEffect(() => {
+    setConnectionStatus(fetchConnectionStatus(connectionCtx));
+  }, [connectionCtx]);
+
+  if (connectionStatus) {
     return (
       <>
         <Head>

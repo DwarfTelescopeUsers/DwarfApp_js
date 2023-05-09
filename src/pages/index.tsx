@@ -1,20 +1,23 @@
 import Head from "next/head";
 import { useContext, useState, useEffect } from "react";
 import Link from "next/link";
-import { CoordinatesData } from "@/types";
 
+import { CoordinatesData } from "@/types";
 import { URI, cameraStatus, statusTelephotoCmd } from "@/lib/dwarf_api";
 import { ConnectionContext } from "@/stores/ConnectionContext";
-import { fetchCoordinates } from "@/db/data_utils";
+import { fetchCoordinates, fetchConnectionStatus } from "@/db/data_utils";
+import { saveConnectionStatusDB } from "@/db/db_utils";
 
 export default function Home() {
   let connectionCtx = useContext(ConnectionContext);
 
   const [connecting, setConnecting] = useState(false);
   const [coordinates, setCoordinates] = useState<CoordinatesData>();
+  const [connectionStatus, setConnectionStatus] = useState<boolean>();
 
   useEffect(() => {
     setCoordinates(fetchCoordinates(connectionCtx));
+    setConnectionStatus(fetchConnectionStatus(connectionCtx));
   }, [connectionCtx]);
 
   function checkConnection() {
@@ -32,14 +35,15 @@ export default function Home() {
       let message = JSON.parse(event.data);
       console.log(message);
       if (message.interface === statusTelephotoCmd) {
-        connectionCtx.setConnectionStatus(200);
+        connectionCtx.setConnectionStatus(true);
+        saveConnectionStatusDB(true);
       }
     });
 
     socket.addEventListener("error", () => {
       setConnecting(false);
-
-      connectionCtx.setConnectionStatus(500);
+      connectionCtx.setConnectionStatus(false);
+      saveConnectionStatusDB(false);
     });
   }
 
@@ -47,10 +51,10 @@ export default function Home() {
     if (connecting) {
       return <span>Connecting...</span>;
     }
-    if (connectionCtx.connectionStatus === null) {
+    if (connectionStatus === undefined) {
       return <></>;
     }
-    if (connectionCtx.connectionStatus === 500) {
+    if (connectionStatus === false) {
       return <span>Connection failed.</span>;
     }
 
@@ -97,12 +101,12 @@ export default function Home() {
           {renderConnectionStatus()}
         </li>
 
-        {connectionCtx.connectionStatus === 200 && (
+        {connectionStatus && (
           <li className="mb-2">
             <Link href="/cameras">View Cameras</Link>
           </li>
         )}
-        {connectionCtx.connectionStatus === 200 && (
+        {connectionStatus && (
           <li className="mb-2">
             <Link href="/calibrate-goto">Calibrate Goto</Link>
           </li>
