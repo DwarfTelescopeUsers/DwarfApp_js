@@ -1,3 +1,5 @@
+import React from "react";
+
 export type ConnectionContextType = {
   connectionStatus: boolean | undefined;
   setConnectionStatus: React.Dispatch<

@@ -5,8 +5,8 @@ const geoOptions = {
 };
 
 function successHandler(
-  position: GeolocationPosition,
-  callback: (coords: GeolocationCoordinates) => void
+  position: GeolocationPosition, // eslint-disable-line no-undef
+  callback: (coords: GeolocationCoordinates) => void // eslint-disable-line no-unused-vars, no-undef
 ): void {
   const coords = position.coords;
   callback(coords);
@@ -17,7 +17,7 @@ function errorHandler(err: any): void {
 }
 
 export function getCoordinates(
-  callback: (coords: GeolocationCoordinates) => void
+  callback: (coords: GeolocationCoordinates) => void // eslint-disable-line no-unused-vars, no-undef
 ) {
   navigator.geolocation.getCurrentPosition(
     (position) => {
