@@ -76,6 +76,20 @@ export default function SetISPSettings() {
     connectionCtx.setBinning(Number(e.target.value));
   }
 
+  function changeExposureHandler(e: ChangeEvent<HTMLSelectElement>) {
+    connectionCtx.setExposure(Number(e.target.value));
+  }
+
+  function changeGainHandler(e: ChangeEvent<HTMLInputElement>) {
+    console.log("changeGainHandler", e.target.value);
+    connectionCtx.setGain(Number(e.target.value));
+  }
+
+  const allowedExposures = [
+    0.001, 0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
+    12, 13, 14, 15,
+  ];
+
   return (
     <div>
       <h2>Settings</h2>
@@ -83,12 +97,12 @@ export default function SetISPSettings() {
         <div className="row mb-3">
           <div className="col-sm-2">
             <label htmlFor="gain" className="form-label">
-              Gain (0 - 240)
+              Gain {connectionCtx.gain}
             </label>
           </div>
           <div className="col-sm-10">
             <input
-              type="number"
+              type="range"
               id="gain"
               name="gain"
               className="form-control"
@@ -96,6 +110,7 @@ export default function SetISPSettings() {
               max={240}
               step={10}
               defaultValue={connectionCtx.gain}
+              onChange={(e) => changeGainHandler(e)}
               required
             ></input>
           </div>
@@ -104,21 +119,22 @@ export default function SetISPSettings() {
         <div className="row mb-3">
           <div className="col-sm-2">
             <label htmlFor="exposure" className="form-label">
-              Exposure time (0.5 - 15 seconds)
+              Exposure time (seconds)
             </label>
           </div>
           <div className="col-sm-10">
-            <input
-              type="number"
+            <select
               id="exposure"
               name="exposure"
-              className="form-control"
-              min={0}
-              max={15}
-              step={0.01}
-              defaultValue={connectionCtx.exposure}
-              required
-            ></input>
+              onChange={(e) => changeExposureHandler(e)}
+              value={connectionCtx.exposure?.toString()}
+            >
+              {allowedExposures.map((exp) => (
+                <option key={exp} value={exp}>
+                  {exp}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
 
