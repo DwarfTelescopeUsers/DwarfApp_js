@@ -287,7 +287,7 @@ export function startGoto(
   socketSend(socket, options);
 }
 
-export function setExposureMode(
+export function setExposureModeD2(
   socket: WebSocket,
   camera = cameraTelephoto,
   mode = "manual"
@@ -308,7 +308,7 @@ export function setExposureMode(
   socketSend(socket, options);
 }
 
-export function setExposure(
+export function setExposureD2(
   socket: WebSocket,
   camera = cameraTelephoto,
   exposureTime: number
@@ -322,7 +322,7 @@ export function setExposure(
   socketSend(socket, options);
 }
 
-export function setGainMode(
+export function setGainModeD2(
   socket: WebSocket,
   camera = cameraTelephoto,
   mode = "manual"
@@ -338,7 +338,7 @@ export function setGainMode(
   socketSend(socket, options);
 }
 
-export function setGain(
+export function setGainD2(
   socket: WebSocket,
   camera = cameraTelephoto,
   gainValue: number
@@ -352,12 +352,12 @@ export function setGain(
   socketSend(socket, options);
 }
 
-export function setIR(socket: WebSocket, irValue = IRCut): void {
+export function setIRD2(socket: WebSocket, ir = IRCut): void {
   console.log("set IR value...");
   let options = {
     interface: setIRCmd,
     camId: cameraTelephoto,
-    value: irValue,
+    value: ir,
   };
   socketSend(socket, options);
 }
@@ -390,7 +390,7 @@ export function takeAstroPhoto(
   socketSend(socket, options);
 }
 
-export function setRawPreview(
+export function setRawPreviewD2(
   socket: WebSocket,
   previewMode = rawPreviewContinousSuperimpose
 ): void {

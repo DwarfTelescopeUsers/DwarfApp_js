@@ -23,3 +23,14 @@ export function fetchConnectionStatusDB() {
 export function saveConnectionStatusDB(status: boolean) {
   localStorage.setItem("connectionStatus", status ? "true" : "false");
 }
+
+export function saveISPSettingsDB(options: any) {
+  localStorage.setItem("ispSettings", options);
+}
+
+export function fetchISPSettingsDB() {
+  let settings = localStorage.getItem("ispSettings");
+  if (settings) {
+    return JSON.parse(settings);
+  }
+}

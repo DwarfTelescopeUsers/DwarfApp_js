@@ -1,31 +1,10 @@
-import { useState } from "react";
+type PropType = {
+  cameraStatusData: any;
+  getCameraStatus: () => void;
+};
 
-import { URI, cameraStatus, statusTelephotoCmd } from "@/lib/dwarf_api";
-
-export default function CameraStatus() {
-  const [cameraStatusData, setCameraStatusData] = useState<any>(null);
-
-  function getCameraStatus() {
-    const socket = new WebSocket(URI);
-
-    socket.addEventListener("open", () => {
-      cameraStatus(socket);
-    });
-
-    socket.addEventListener("message", (event) => {
-      let message = JSON.parse(event.data);
-      if (message.interface === statusTelephotoCmd) {
-        setCameraStatusData(message);
-      }
-      console.log("ok", message);
-    });
-
-    socket.addEventListener("error", (message) => {
-      setCameraStatusData(message);
-
-      console.log("err", message);
-    });
-  }
+export default function CameraStatus(props: PropType) {
+  const { cameraStatusData, getCameraStatus } = props;
 
   return (
     <>
