@@ -4,9 +4,6 @@ export default function Nav() {
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
-        <Link className="navbar-brand" href="/">
-          Dwarf II Demo
-        </Link>
         <button
           className="navbar-toggler"
           type="button"
@@ -23,6 +20,36 @@ export default function Nav() {
             <li className="nav-item">
               <Link className="nav-link active" aria-current="page" href="/">
                 Home
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link
+                className="nav-link active"
+                aria-current="page"
+                href="/setup-scope"
+              >
+                Setup Scope
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link
+                className="nav-link active"
+                aria-current="page"
+                href="/scope"
+              >
+                Astro
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link
+                className="nav-link active"
+                aria-current="page"
+                href="/settings"
+              >
+                Settings
               </Link>
             </li>
           </ul>

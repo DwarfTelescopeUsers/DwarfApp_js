@@ -1,5 +1,6 @@
 import { useState, useContext, useEffect, useCallback } from "react";
 
+import AstroDarks from "@/components/AstroDarks";
 import CameraStatus from "@/components/CameraStatus";
 import SetISPSettings from "@/components/SetISPSettings";
 import ExecuteGoto from "@/components/ExecuteGoto";
@@ -63,6 +64,10 @@ export default function AstroPhoto() {
       <hr></hr>
 
       <SetISPSettings />
+
+      <hr></hr>
+
+      <AstroDarks />
 
       <hr></hr>
       <ExecuteGoto />

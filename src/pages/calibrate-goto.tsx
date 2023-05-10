@@ -65,7 +65,7 @@ export default function CalibrateGoto() {
       <h2>Instructions</h2>
       <ol>
         <li className="mb-2">
-          <Link href="/set-location">Set the location</Link> for this website.
+          <Link href="/setup-scope">Set the location</Link> for this website.
         </li>
         <li className="mb-2">
           Focus the Dwarf II using the mobile app from Dwarf Labs.

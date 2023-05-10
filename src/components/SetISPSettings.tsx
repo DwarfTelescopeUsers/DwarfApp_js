@@ -92,7 +92,7 @@ export default function SetISPSettings() {
 
   return (
     <div>
-      <h2>Settings</h2>
+      <h2>Camera Settings</h2>
       <form className="col-sm-8" onSubmit={submitHandler}>
         <div className="row mb-3">
           <div className="col-sm-2">
