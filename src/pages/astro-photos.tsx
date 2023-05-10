@@ -2,9 +2,11 @@ import { useState, useContext, useEffect, useCallback } from "react";
 
 import CameraStatus from "@/components/CameraStatus";
 import SetISPSettings from "@/components/SetISPSettings";
+import ExecuteGoto from "@/components/ExecuteGoto";
 import { URI, cameraStatus, statusTelephotoCmd } from "@/lib/dwarf_api";
 import { ConnectionContext } from "@/stores/ConnectionContext";
 import { fetchISPSettingsDB } from "@/db/db_utils";
+import { roundExposure } from "@/lib/math_utils";
 
 export default function AstroPhoto() {
   const [cameraStatusData, setCameraStatusData] = useState<any>(null);
@@ -23,7 +25,7 @@ export default function AstroPhoto() {
       if (message.interface === statusTelephotoCmd) {
         setCameraStatusData(message);
         connectionCtx.setGain(message.gain);
-        connectionCtx.setExposure(Math.round(message.exp * 100) / 100);
+        connectionCtx.setExposure(roundExposure(message.exp));
         connectionCtx.setIr(message.ir);
 
         // TODO: get binning from telescope if DL adds set binning command to api

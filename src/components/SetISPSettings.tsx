@@ -127,7 +127,7 @@ export default function SetISPSettings() {
               id="exposure"
               name="exposure"
               onChange={(e) => changeExposureHandler(e)}
-              value={connectionCtx.exposure?.toString()}
+              value={connectionCtx.exposure}
             >
               {allowedExposures.map((exp) => (
                 <option key={exp} value={exp}>
