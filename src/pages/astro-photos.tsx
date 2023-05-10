@@ -63,6 +63,9 @@ export default function AstroPhoto() {
       <hr></hr>
 
       <SetISPSettings />
+
+      <hr></hr>
+      <ExecuteGoto />
     </div>
   );
 }
