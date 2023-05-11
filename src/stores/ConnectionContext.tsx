@@ -20,6 +20,16 @@ export function ConnectionContextProvider({ children }: ProviderProps) {
   const [exposure, setExposure] = useState<number | undefined>();
   const [ir, setIr] = useState<number | undefined>();
   const [binning, setBinning] = useState<number | undefined>();
+  const [initialConnectionTime, setInitialConnectionTime] = useState<
+    number | undefined
+  >();
+
+  function deleteSettings() {
+    setLatitude(undefined);
+    setLongitude(undefined);
+    setConnectionStatus(undefined);
+    setInitialConnectionTime(undefined);
+  }
 
   let context = {
     connectionStatus,
@@ -36,6 +46,9 @@ export function ConnectionContextProvider({ children }: ProviderProps) {
     setIr,
     binning,
     setBinning,
+    deleteSettings,
+    initialConnectionTime,
+    setInitialConnectionTime,
   };
   return (
     <ConnectionContext.Provider value={context}>

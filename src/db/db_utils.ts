@@ -1,3 +1,5 @@
+import { olderThanHours } from "@/lib/math_utils";
+
 export function fetchCoordinatesDB() {
   let lat = localStorage.getItem("latitude");
   let lon = localStorage.getItem("longitude");
@@ -21,6 +23,9 @@ export function fetchConnectionStatusDB() {
 }
 
 export function saveConnectionStatusDB(status: boolean) {
+  if (status) {
+    localStorage.setItem("initialConnectionTime", Date.now().toString());
+  }
   localStorage.setItem("connectionStatus", status ? "true" : "false");
 }
 
@@ -33,4 +38,21 @@ export function fetchISPSettingsDB() {
   if (settings) {
     return JSON.parse(settings);
   }
+}
+
+export function expiredSession() {
+  let prevTime = localStorage.getItem("initialConnectionTime");
+  if (prevTime) {
+    return olderThanHours(Number(prevTime), 12);
+  }
+}
+
+export function deleteSettings() {
+  [
+    "latitude",
+    "longitude",
+    "connectionStatus",
+    "ispSettings",
+    "initialConnectionTime",
+  ].forEach((item) => localStorage.removeItem(item));
 }

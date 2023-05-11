@@ -12,3 +12,8 @@ export function roundExposure(value: number): number {
 
   return newValue;
 }
+
+export function olderThanHours(prevTime: number, hours: number): boolean {
+  const oneDay = hours * 60 * 60 * 1000;
+  return Date.now() - prevTime > oneDay;
+}

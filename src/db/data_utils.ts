@@ -29,8 +29,7 @@ export function fetchConnectionStatus(
   connectionCtx: ConnectionContextType
 ): boolean | undefined {
   let status = fetchConnectionStatusDB();
-
-  if (connectionCtx.connectionStatus !== null) {
+  if (connectionCtx.connectionStatus !== undefined) {
     return connectionCtx.connectionStatus;
   } else if (status !== undefined) {
     return status.connectionStatus;

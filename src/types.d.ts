@@ -17,6 +17,11 @@ export type ConnectionContextType = {
   setIr: React.Dispatch<React.SetStateAction<number | undefined>>;
   binning: number | undefined;
   setBinning: React.Dispatch<React.SetStateAction<number | undefined>>;
+  initialConnectionTime: number | undefined;
+  setInitialConnectionTime: React.Dispatch<
+    React.SetStateAction<number | undefined>
+  >;
+  deleteSettings: () => void;
 };
 
 export type CoordinatesData = {
