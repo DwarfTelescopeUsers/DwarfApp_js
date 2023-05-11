@@ -126,7 +126,7 @@ const rawPreviewSingleComposite = 2;
 const takeAstroDarkFramesCmd = 10026;
 
 // query shot field
-const queryShotFieldCmd = 10026;
+export const queryShotFieldCmd = 10027;
 
 // ===============
 // 4.2 tracking
@@ -401,6 +401,17 @@ export function setRawPreviewD2(
     interface: setRawPreviewCmd,
     camId: cameraTelephoto,
     source: previewMode,
+  };
+  socketSend(socket, options);
+}
+
+
+export function queryShotField(socket: WebSocket, binning: number) {
+  console.log("query shot field...");
+  let options = {
+    interface: queryShotFieldCmd,
+    camId: cameraTelephoto,
+    binning: binning,
   };
   socketSend(socket, options);
 }
