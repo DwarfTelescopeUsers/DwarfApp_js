@@ -110,8 +110,8 @@ const Moon = 7;
 const takeAstroPhotoCmd = 10011;
 const stopAstroPhotoCmd = 10015;
 
-const binning1x1 = 0;
-const binning2x2 = 1;
+export const binning1x1 = 0;
+export const binning2x2 = 1;
 
 const fileFits = 0;
 const fileTiff = 1;
@@ -405,6 +405,26 @@ export function setRawPreviewD2(
   socketSend(socket, options);
 }
 
+// TODO: not working
+// response is {interface: 11003, value: 100, code: 0} when darks already exists
+export function takeAstroDarks(
+  socket: WebSocket,
+  binning: number,
+  gain: number,
+  exposure: number
+) {
+  console.log("take astro darks...");
+  let options = {
+    interface: takeAstroDarkFramesCmd,
+    camId: cameraTelephoto,
+    count: 40,
+    name: `DWARF_DARK_${now()}`,
+    binning: binning,
+    darkGain: gain,
+    darkExposure: exposure,
+  };
+  socketSend(socket, options);
+}
 
 export function queryShotField(socket: WebSocket, binning: number) {
   console.log("query shot field...");
