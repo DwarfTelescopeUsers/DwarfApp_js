@@ -22,6 +22,8 @@ export type ConnectionContextType = {
     React.SetStateAction<number | undefined>
   >;
   deleteSettings: () => void;
+  fileFormat: number | undefined;
+  setFileFormat: React.Dispatch<React.SetStateAction<number | undefined>>;
 };
 
 export type CoordinatesData = {

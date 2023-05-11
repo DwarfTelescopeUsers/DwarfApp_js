@@ -24,14 +24,16 @@ export default function SetISPSettings() {
     const formExposure = formData.get("exposure");
     const formIr = formData.get("ir");
     const formBinning = formData.get("binning");
+    const formFileFormat = formData.get("fileFormat");
 
-    if (formGain && formExposure && formIr && formBinning) {
+    if (formGain && formExposure && formIr && formBinning && formFileFormat) {
       saveISPSettingsDB(
         JSON.stringify({
           gain: Number(formGain),
           exposure: Number(formExposure),
           ir: Number(formIr),
           binning: Number(formBinning),
+          fileFormat: Number(formFileFormat),
         })
       );
       connectionCtx.setGain(Number(formGain));
@@ -41,7 +43,9 @@ export default function SetISPSettings() {
 
       // NOTE: connectionCtx.gain, etc doesn't give the latest values, so
       // we need to pass in the form data to updateTelescope
-      // TODO: save binning to telescope if DL adds set binning command to api
+
+      // TODO: save binning, file format to telescope if DL adds
+      // set binning , set , file format command to api
       updateTelescope(Number(formGain), Number(formExposure), Number(formIr));
     }
   }
@@ -81,8 +85,11 @@ export default function SetISPSettings() {
   }
 
   function changeGainHandler(e: ChangeEvent<HTMLInputElement>) {
-    console.log("changeGainHandler", e.target.value);
     connectionCtx.setGain(Number(e.target.value));
+  }
+
+  function changeFileFormatHandler(e: ChangeEvent<HTMLSelectElement>) {
+    connectionCtx.setFileFormat(Number(e.target.value));
   }
 
   const allowedExposures = [
@@ -172,6 +179,25 @@ export default function SetISPSettings() {
             >
               <option value={"0"}>1x1</option>
               <option value={"1"}>2x2</option>
+            </select>
+          </div>
+        </div>
+
+        <div className="row mb-3">
+          <div className="col-sm-2">
+            <label htmlFor="fileFormat" className="form-label">
+              File Format
+            </label>
+          </div>
+          <div className="col-sm-10">
+            <select
+              id="fileFormat"
+              name="fileFormat"
+              onChange={(e) => changeFileFormatHandler(e)}
+              value={connectionCtx.fileFormat?.toString()}
+            >
+              <option value={"0"}>FITS</option>
+              <option value={"1"}>TIFF</option>
             </select>
           </div>
         </div>

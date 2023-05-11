@@ -23,6 +23,7 @@ export function ConnectionContextProvider({ children }: ProviderProps) {
   const [initialConnectionTime, setInitialConnectionTime] = useState<
     number | undefined
   >();
+  const [fileFormat, setFileFormat] = useState<number | undefined>();
 
   function deleteSettings() {
     setLatitude(undefined);
@@ -49,6 +50,8 @@ export function ConnectionContextProvider({ children }: ProviderProps) {
     deleteSettings,
     initialConnectionTime,
     setInitialConnectionTime,
+    fileFormat,
+    setFileFormat,
   };
   return (
     <ConnectionContext.Provider value={context}>
