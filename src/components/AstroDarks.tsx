@@ -23,7 +23,7 @@ export default function AstroDarks() {
 
   return (
     <div>
-      <h2>3. Astro Darks</h2>
+      <h2>Astro Darks (Work in progress...)</h2>
       <p>
         To improve the quality of astronomy photos, you should shoot dark
         frames. When Dwarf II takes astro photos, it will combine the dark
@@ -40,15 +40,18 @@ export default function AstroDarks() {
           Click Start. This process will take about ten minutes.
         </li>
       </ol>
+
+      <p>
+        API Note: The API does not currently return warning about replacing dark
+        frames if they exists.
+      </p>
       <button
         className="btn btn-secondary"
         disabled
         onClick={takeAstroDarksHandler}
       >
-        Start
+        Not Available Yet
       </button>
-
-      <span className="ms-3">Coming soon...</span>
     </div>
   );
 }
