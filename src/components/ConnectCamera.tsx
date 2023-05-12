@@ -63,7 +63,7 @@ export default function ConnectCamera() {
 
   return (
     <div>
-      <h2>1. Connect to Dwarf II</h2>
+      <h2>Connect to Dwarf II</h2>
 
       <p>
         In order for this site to connect to the Dwarf II, both the Dwarf II and
