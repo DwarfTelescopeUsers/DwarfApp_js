@@ -100,14 +100,14 @@ export default function SetISPSettings() {
   return (
     <div>
       <h2>Camera Settings</h2>
-      <form className="col-sm-8" onSubmit={submitHandler}>
+      <form onSubmit={submitHandler}>
         <div className="row mb-3">
-          <div className="col-sm-2">
+          <div className="col-sm-4">
             <label htmlFor="gain" className="form-label">
-              Gain {connectionCtx.gain}
+              Gain
             </label>
           </div>
-          <div className="col-sm-10">
+          <div className="col-sm-8">
             <input
               type="range"
               id="gain"
@@ -124,12 +124,12 @@ export default function SetISPSettings() {
         </div>
 
         <div className="row mb-3">
-          <div className="col-sm-2">
+          <div className="col-sm-4">
             <label htmlFor="exposure" className="form-label">
-              Exposure time (seconds)
+              Exposure (sec)
             </label>
           </div>
-          <div className="col-sm-10">
+          <div className="col-sm-8">
             <select
               id="exposure"
               name="exposure"
@@ -146,12 +146,12 @@ export default function SetISPSettings() {
         </div>
 
         <div className="row mb-3">
-          <div className="col-sm-2">
+          <div className="col-sm-4">
             <label htmlFor="ir" className="form-label">
               IR
             </label>
           </div>
-          <div className="col-sm-10">
+          <div className="col-sm-8">
             <select
               id="ir"
               name="ir"
@@ -165,12 +165,12 @@ export default function SetISPSettings() {
         </div>
 
         <div className="row mb-3">
-          <div className="col-sm-2">
+          <div className="col-sm-4">
             <label htmlFor="binning" className="form-label">
               Binning
             </label>
           </div>
-          <div className="col-sm-10">
+          <div className="col-sm-8">
             <select
               id="binning"
               name="binning"
@@ -184,12 +184,12 @@ export default function SetISPSettings() {
         </div>
 
         <div className="row mb-3">
-          <div className="col-sm-2">
+          <div className="col-sm-4">
             <label htmlFor="fileFormat" className="form-label">
               File Format
             </label>
           </div>
-          <div className="col-sm-10">
+          <div className="col-sm-8">
             <select
               id="fileFormat"
               name="fileFormat"
