@@ -1,29 +1,11 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext } from "react";
 import type { FormEvent } from "react";
 
-import { CoordinatesData } from "@/types";
 import { ConnectionContext } from "@/stores/ConnectionContext";
-import { fetchCoordinates } from "@/db/data_utils";
 import { URI, startGoto } from "@/lib/dwarf_api";
 
 export default function ExecuteGoto() {
   let connectionCtx = useContext(ConnectionContext);
-
-  const [coordinates, setCoordinates] = useState<CoordinatesData>();
-
-  useEffect(() => {
-    setCoordinates(fetchCoordinates(connectionCtx));
-  }, [connectionCtx]);
-
-  function renderCoordinates() {
-    if (coordinates) {
-      return (
-        <p>
-          Latitude: {coordinates.latitude}, Longitude: {coordinates.longitude}
-        </p>
-      );
-    }
-  }
 
   function submitHandler(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -36,8 +18,8 @@ export default function ExecuteGoto() {
 
   function updateTelescope(ra: number, declination: number) {
     const socket = new WebSocket(URI);
-    let lat = coordinates?.latitude;
-    let lon = coordinates?.longitude;
+    let lat = connectionCtx.latitude;
+    let lon = connectionCtx.longitude;
     if (lat === undefined || lon === undefined) {
       return;
     }
@@ -59,9 +41,7 @@ export default function ExecuteGoto() {
 
   return (
     <div>
-      <h1>Execute Goto</h1>
-
-      {renderCoordinates()}
+      <h1>Manual Goto</h1>
 
       <form className="col-sm-8" onSubmit={submitHandler}>
         <div className="row mb-3">
@@ -100,9 +80,10 @@ export default function ExecuteGoto() {
           </div>
         </div>
 
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-secondary" disabled>
           Submit
         </button>
+        <span className="ms-3">Coming soon...</span>
       </form>
     </div>
   );
