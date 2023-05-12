@@ -9,7 +9,9 @@ import ManualGoto from "@/components/ManualGoto";
 import { useSetupConnection } from "@/hooks/useSetupConnection";
 import CalibrateGoto from "@/components/CalibrateGoto";
 import StatusBar from "@/components/shared/StatusBar";
+import Focus from "@/components/Focus";
 import Accordian from "@/components/shared/Accordian";
+import DwarfCameras from "@/components/DwarfCameras";
 
 export default function AstroPhoto() {
   useSetupConnection();
@@ -73,6 +75,8 @@ export default function AstroPhoto() {
         Menu
       </button>
 
+      <DwarfCameras />
+
       <div
         className="offcanvas offcanvas-start"
         data-bs-scroll="true"
@@ -96,6 +100,8 @@ export default function AstroPhoto() {
 
           <Accordian component={<CameraStatus />} />
 
+          <hr />
+          <Focus />
           <hr />
           <CalibrateGoto />
           <hr />
