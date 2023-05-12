@@ -14,34 +14,29 @@ export default function Home() {
         website has limited functionality.
       </p>
 
-      <div className="container">
-        <div className="row g-4 py-4 row-cols-1 row-cols-lg-2">
-          <div className="feature col">
-            <h3 className="fs-2">Tutorials</h3>
-            <p>Read and watch tutorials from Dwarf Lab.</p>
-            <a
-              href="https://help.dwarflab.com/en-US"
-              className="btn btn-primary"
-            >
-              Learn
-            </a>
-          </div>
+      <div className="row g-4 py-4 row-cols-1 row-cols-lg-3">
+        <div className="feature col">
+          <h3 className="fs-2">Tutorials</h3>
+          <p>Read and watch tutorials from Dwarf Lab.</p>
+          <a href="https://help.dwarflab.com/en-US" className="btn btn-primary">
+            Learn
+          </a>
+        </div>
 
-          <div className="feature col">
-            <h3 className="fs-2">Setup Scope</h3>
-            <p>Connect and setup the Dwarf II.</p>
-            <Link href="/setup-scope" className="btn btn-primary">
-              Start
-            </Link>
-          </div>
+        <div className="feature col">
+          <h3 className="fs-2">Setup Scope</h3>
+          <p>Connect and setup the Dwarf II.</p>
+          <Link href="/setup-scope" className="btn btn-primary">
+            Start
+          </Link>
+        </div>
 
-          {/* <div className="feature col">
-            <h3 className="fs-2">Photos</h3>
-            <p>View photos stored on the SD card.</p>
-            <Link href="/saved-photos" className="btn btn-primary">
-              View
-            </Link>
-          </div> */}
+        <div className="feature col">
+          <h3 className="fs-2">Photos</h3>
+          <p>View photos stored on the SD card.</p>
+          <Link href="/saved-photos" className="btn btn-primary">
+            View
+          </Link>
         </div>
       </div>
     </>

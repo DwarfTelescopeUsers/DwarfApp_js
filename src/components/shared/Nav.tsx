@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function Nav() {
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
-      <div className="container-fluid">
+      <div className="container">
         <button
           className="navbar-toggler"
           type="button"
@@ -37,7 +37,7 @@ export default function Nav() {
               <Link
                 className="nav-link active"
                 aria-current="page"
-                href="/scope"
+                href="/astro-photos"
               >
                 Astro
               </Link>

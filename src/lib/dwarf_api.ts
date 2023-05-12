@@ -173,6 +173,12 @@ const microsdAvailableCmd = 11409;
 const dwarfSoftwareVersionCmd = 11410;
 const dwarfChargingStatusCmd = 11011;
 
+// ===============
+// 7.11 shut down
+// ===============
+
+const shutDownCmd = 11004;
+
 function now(): string {
   return new Date().toISOString().replace("T", " ").slice(0, 19);
 }
@@ -432,6 +438,14 @@ export function queryShotField(socket: WebSocket, binning: number) {
     interface: queryShotFieldCmd,
     camId: cameraTelephoto,
     binning: binning,
+  };
+  socketSend(socket, options);
+}
+
+export function shutDown(socket: WebSocket) {
+  console.log("query shot field...");
+  let options = {
+    interface: shutDownCmd,
   };
   socketSend(socket, options);
 }
