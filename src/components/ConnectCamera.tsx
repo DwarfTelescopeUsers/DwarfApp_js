@@ -1,59 +1,13 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState } from "react";
 
 import { URI, cameraStatus, statusTelephotoCmd } from "@/lib/dwarf_api";
 import { ConnectionContext } from "@/stores/ConnectionContext";
-import {
-  saveConnectionStatusDB,
-  expiredSession,
-  deleteSettings,
-  fetchConnectionStatusDB,
-  fetchCoordinatesDB,
-} from "@/db/db_utils";
-import { fetchConnectionStatus, fetchCoordinates } from "@/db/data_utils";
-import { checkConnectionLoop } from "@/lib/connection_status";
+import { saveConnectionStatusDB } from "@/db/db_utils";
 
 export default function ConnectCamera() {
   let connectionCtx = useContext(ConnectionContext);
 
   const [connecting, setConnecting] = useState(false);
-
-  useEffect(() => {
-    let timer: any;
-
-    if (expiredSession()) {
-      console.log("expiredSession true");
-      deleteSettings();
-      connectionCtx.deleteSettings();
-    } else {
-      checkConnectionLoop(connectionCtx);
-      // fetch values from DB and set connectionCtx
-      if (connectionCtx.connectionStatus === undefined) {
-        let statusDB = fetchConnectionStatusDB();
-        if (statusDB !== undefined) {
-          connectionCtx.setConnectionStatus(statusDB.connectionStatus);
-        }
-      }
-      if (connectionCtx.latitude === undefined) {
-        let coors = fetchCoordinatesDB();
-        if (coors.latitude) {
-          connectionCtx.setLatitude(coors.latitude);
-          connectionCtx.setLongitude(coors.longitude);
-        }
-      }
-
-      // continously check connection status
-      if (connectionCtx.connectionStatus) {
-        timer = setInterval(() => {
-          checkConnectionLoop(connectionCtx, timer);
-        }, 10000);
-      }
-    }
-
-    return () => {
-      console.log("unmount ConnectCamera: delete checkConnectionLoop timer");
-      clearInterval(timer);
-    };
-  }, [connectionCtx]);
 
   function checkConnection() {
     setConnecting(true);
