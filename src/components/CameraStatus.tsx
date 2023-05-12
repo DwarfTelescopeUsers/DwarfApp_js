@@ -73,9 +73,9 @@ export default function CameraStatus() {
 
   return (
     <>
-      <h2>Telephoto camera status</h2>
-      <button className="btn btn-primary" onClick={getCameraStatus}>
-        Get Status
+      <h3>Telephoto camera status</h3>
+      <button className="btn btn-primary mb-3" onClick={getCameraStatus}>
+        Update
       </button>
       {cameraStatusData && (
         <pre>{JSON.stringify(cameraStatusData, null, 2)}</pre>
