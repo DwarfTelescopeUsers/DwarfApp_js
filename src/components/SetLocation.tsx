@@ -32,7 +32,7 @@ export default function SetLocation() {
 
   return (
     <>
-      <h2>2. Set Location</h2>
+      <h2>Set Location</h2>
       <p>
         In order to take astronomy photos, this site needs your latitude and
         longitude.
