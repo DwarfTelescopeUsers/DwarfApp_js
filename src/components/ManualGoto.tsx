@@ -20,9 +20,6 @@ export default function ExecuteGoto() {
     const socket = new WebSocket(URI);
     let lat = connectionCtx.latitude;
     let lon = connectionCtx.longitude;
-    if (lat === undefined || lon === undefined) {
-      return;
-    }
 
     socket.addEventListener("open", () => {
       let planet = null;
@@ -41,16 +38,16 @@ export default function ExecuteGoto() {
 
   return (
     <div>
-      <h1>Manual Goto</h1>
+      <h2>Manual Goto</h2>
 
-      <form className="col-sm-8" onSubmit={submitHandler}>
+      <form onSubmit={submitHandler}>
         <div className="row mb-3">
-          <div className="col-sm-2">
+          <div className="col-sm-4">
             <label htmlFor="ra" className="form-label">
               Right Acension
             </label>
           </div>
-          <div className="col-sm-10">
+          <div className="col-sm-8">
             <input
               pattern="^-?\d*(\.\d+)?$"
               className="form-control"
@@ -63,12 +60,12 @@ export default function ExecuteGoto() {
         </div>
 
         <div className="row mb-3">
-          <div className="col-sm-2">
+          <div className="col-sm-4">
             <label htmlFor="declination" className="form-label">
               Declination
             </label>
           </div>
-          <div className="col-sm-10">
+          <div className="col-sm-8">
             <input
               pattern="^-?\d*(\.\d+)?$"
               className="form-control"
@@ -80,7 +77,7 @@ export default function ExecuteGoto() {
           </div>
         </div>
 
-        <button type="submit" className="btn btn-secondary" disabled>
+        <button type="submit" className="btn btn-primary">
           Submit
         </button>
         <span className="ms-3">Coming soon...</span>
