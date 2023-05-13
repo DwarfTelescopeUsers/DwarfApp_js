@@ -40,10 +40,11 @@ export default function SetISPSettings() {
       connectionCtx.setGain(Number(formGain));
       connectionCtx.setExposure(Number(formExposure));
       connectionCtx.setIr(Number(formIr));
-      connectionCtx.setIr(Number(formBinning));
+      connectionCtx.setBinning(Number(formBinning));
+      connectionCtx.setFileFormat(Number(formFileFormat));
 
-      // NOTE: connectionCtx.gain, etc doesn't give the latest values, so
-      // we need to pass in the form data to updateTelescope
+      // NOTE: can't use useContext values (connectionCtx.gain) to get the
+      // latest values, so we need to pass in the form data to updateTelescope
 
       // TODO: save binning, file format to telescope if DL adds
       // set binning , set , file format command to api
@@ -57,8 +58,8 @@ export default function SetISPSettings() {
 
     socket.addEventListener("open", () => {
       setExposureModeD2(socket, camera, "manual");
-      setGainModeD2(socket, camera, "manual");
       setExposureD2(socket, camera, exposure);
+      setGainModeD2(socket, camera, "manual");
       setGainD2(socket, camera, gain);
       setIRD2(socket, ir);
     });
