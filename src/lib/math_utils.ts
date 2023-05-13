@@ -17,3 +17,11 @@ export function olderThanHours(prevTime: number, hours: number): boolean {
   const oneDay = hours * 60 * 60 * 1000;
   return Date.now() - prevTime > oneDay;
 }
+
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from#sequence_generator_range
+export function range(start: number, stop: number, step: number) {
+  return Array.from(
+    { length: (stop - start) / step + 1 },
+    (_, i) => start + i * step
+  );
+}

@@ -12,6 +12,7 @@ import {
   setGainD2,
   setIRD2,
 } from "@/lib/dwarf_api";
+import { range } from "@/lib/math_utils";
 
 export default function SetISPSettings() {
   let connectionCtx = useContext(ConnectionContext);
@@ -84,7 +85,7 @@ export default function SetISPSettings() {
     connectionCtx.setExposure(Number(e.target.value));
   }
 
-  function changeGainHandler(e: ChangeEvent<HTMLInputElement>) {
+  function changeGainHandler(e: ChangeEvent<HTMLSelectElement>) {
     connectionCtx.setGain(Number(e.target.value));
   }
 
@@ -97,6 +98,8 @@ export default function SetISPSettings() {
     12, 13, 14, 15,
   ];
 
+  const allowedGains = range(0, 150, 10);
+
   return (
     <div>
       <h2>Camera Settings</h2>
@@ -108,18 +111,18 @@ export default function SetISPSettings() {
             </label>
           </div>
           <div className="col-sm-8">
-            <input
-              type="range"
+            <select
               id="gain"
               name="gain"
-              className="form-control"
-              min={0}
-              max={240}
-              step={10}
-              defaultValue={connectionCtx.gain}
               onChange={(e) => changeGainHandler(e)}
-              required
-            ></input>
+              value={connectionCtx.gain}
+            >
+              {allowedGains.map((exp) => (
+                <option key={exp} value={exp}>
+                  {exp}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
 
