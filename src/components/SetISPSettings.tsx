@@ -5,7 +5,7 @@ import { ConnectionContext } from "@/stores/ConnectionContext";
 import { saveISPSettingsDB } from "@/db/db_utils";
 import {
   URI,
-  cameraTelephoto,
+  telephotoCamera,
   setExposureD2,
   setExposureModeD2,
   setGainModeD2,
@@ -53,7 +53,7 @@ export default function SetISPSettings() {
 
   function updateTelescope(gain: number, exposure: number, ir: number) {
     const socket = new WebSocket(URI);
-    let camera = cameraTelephoto;
+    let camera = telephotoCamera;
 
     socket.addEventListener("open", () => {
       setExposureModeD2(socket, camera, "manual");
