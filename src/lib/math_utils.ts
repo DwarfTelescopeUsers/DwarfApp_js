@@ -6,8 +6,10 @@ export function roundExposure(value: number): number {
     newValue = Math.round(value * 10) / 10;
   } else if (value > 0.008) {
     newValue = Math.round(value * 100) / 100;
-  } else {
+  } else if (value > 0.0008) {
     newValue = Math.round(value * 1000) / 1000;
+  } else {
+    newValue = Math.round(value * 10000) / 10000;
   }
 
   return newValue;

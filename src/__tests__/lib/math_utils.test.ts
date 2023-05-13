@@ -59,8 +59,21 @@ describe("roundExposure", () => {
       [0.0055, 0.006],
       [0.0019, 0.002],
       [0.0011, 0.001],
-      [0.0005, 0.001],
-      [0.0004, 0],
+    ];
+
+    nums.forEach((num) => {
+      let res = roundExposure(num[0]);
+      expect(res).toEqual(num[1]);
+    });
+  });
+
+  it("rounds numbers < .0008 to nearest ten thosanths", () => {
+    let nums = [
+      [0.0008, 0.0008],
+      [0.00055, 0.0006],
+      [0.00051, 0.0005],
+      [0.00005, 0.0001],
+      [0.00004, 0],
     ];
 
     nums.forEach((num) => {
