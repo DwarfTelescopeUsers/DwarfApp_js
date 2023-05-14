@@ -23,12 +23,17 @@ export default function StatusBar() {
     connectionCtx.binning === undefined
       ? "--"
       : `${connectionCtx.binning === 0 ? "1x1" : "2x2"}`;
+  let raDec =
+    `RA: ${connectionCtx.ra || "--"}, ` +
+    `Dec: ${connectionCtx.declination || "--"}`;
 
   return (
     <div className=" mb-2 mt-2">
       <span>{connection}</span>
       <span className="ms-4"> {coords}</span>
-      <span className="ms-4">Gain: {gain}</span>
+      <span className="ms-4">{raDec}</span>
+      <br />
+      <span>Gain: {gain}</span>
       <span className="ms-4">Exp: {exp}</span>
       <span className="ms-4">IR: {ir}</span>
       <span className="ms-4">Binning: {binning}</span>

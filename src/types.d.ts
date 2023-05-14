@@ -24,6 +24,10 @@ export type ConnectionContextType = {
   deleteSettings: () => void;
   fileFormat: number | undefined;
   setFileFormat: React.Dispatch<React.SetStateAction<number | undefined>>;
+  ra: number | undefined;
+  setRa: React.Dispatch<React.SetStateAction<number | undefined>>;
+  declination: number | undefined;
+  setDeclination: React.Dispatch<React.SetStateAction<number | undefined>>;
 };
 
 export type CoordinatesData = {
