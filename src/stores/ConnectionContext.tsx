@@ -28,10 +28,16 @@ export function ConnectionContextProvider({ children }: ProviderProps) {
   const [declination, setDeclination] = useState<number | undefined>();
 
   function deleteSettings() {
+    setConnectionStatus(undefined);
     setLatitude(undefined);
     setLongitude(undefined);
-    setConnectionStatus(undefined);
+    setGain(undefined);
+    setIr(undefined);
+    setBinning(undefined);
     setInitialConnectionTime(undefined);
+    setFileFormat(undefined);
+    setRa(undefined);
+    setDeclination(undefined);
   }
 
   let context = {
