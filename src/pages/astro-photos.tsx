@@ -12,6 +12,7 @@ import StatusBar from "@/components/shared/StatusBar";
 import Focus from "@/components/Focus";
 import Accordian from "@/components/shared/Accordian";
 import DwarfCameras from "@/components/DwarfCameras";
+import TakeAstroPhoto from "@/components/TakeAstroPhoto";
 
 export default function AstroPhoto() {
   useSetupConnection();
@@ -97,16 +98,15 @@ export default function AstroPhoto() {
         </div>
         <div className="offcanvas-body">
           <SetISPSettings />
-
           <Accordian component={<CameraStatus />} />
-
           <hr />
           <Focus />
           <hr />
           <CalibrateGoto />
           <hr />
-
           <ManualGoto />
+          <hr />
+          <TakeAstroPhoto />
         </div>
       </div>
       <div></div>
