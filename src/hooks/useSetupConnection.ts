@@ -40,7 +40,7 @@ export function useSetupConnection() {
       if (connectionCtx.connectionStatus) {
         timer = setInterval(() => {
           checkConnectionLoop(connectionCtx, timer);
-        }, 60 * 1000);
+        }, 90 * 1000);
       }
     }
 
