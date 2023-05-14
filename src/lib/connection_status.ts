@@ -1,4 +1,4 @@
-import { telephotoURL } from "@/lib/dwarf_api";
+import { telephotoURL } from "@/lib/dwarf2_api";
 import { ConnectionContextType } from "@/types";
 
 export function checkConnectionLoop(

@@ -2,7 +2,7 @@ import { useContext } from "react";
 import type { FormEvent } from "react";
 
 import { ConnectionContext } from "@/stores/ConnectionContext";
-import { URI, startGoto } from "@/lib/dwarf_api";
+import { wsURL, startGoto } from "@/lib/dwarf2_api";
 
 export default function ExecuteGoto() {
   let connectionCtx = useContext(ConnectionContext);
@@ -17,7 +17,7 @@ export default function ExecuteGoto() {
   }
 
   function updateTelescope(ra: number, declination: number) {
-    const socket = new WebSocket(URI);
+    const socket = new WebSocket(wsURL);
     let lat = connectionCtx.latitude;
     let lon = connectionCtx.longitude;
 

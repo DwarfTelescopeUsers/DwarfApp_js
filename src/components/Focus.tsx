@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { URI, autoFocus } from "@/lib/dwarf_api";
+import { wsURL, autoFocus } from "@/lib/dwarf2_api";
 
 export default function AutoFocus() {
   const [status, setStatus] = useState<any[]>([]);
@@ -9,7 +9,7 @@ export default function AutoFocus() {
 
   function autofocusHandler() {
     setStatus([]);
-    const socket = new WebSocket(URI);
+    const socket = new WebSocket(wsURL);
 
     socket.addEventListener("open", () => {
       autoFocus(socket);

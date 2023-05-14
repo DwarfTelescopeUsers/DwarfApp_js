@@ -1,14 +1,14 @@
 import { useContext } from "react";
 
 import { ConnectionContext } from "@/stores/ConnectionContext";
-import { takeAstroPhoto, URI } from "@/lib/dwarf_api";
+import { takeAstroPhoto, wsURL } from "@/lib/dwarf2_api";
 import styles from "@/components/TakeAstroPhoto.module.css";
 
 export default function TakeAstroPhoto() {
   let connectionCtx = useContext(ConnectionContext);
 
   function takeAstroPhotoHandler() {
-    const socket = new WebSocket(URI);
+    const socket = new WebSocket(wsURL);
 
     socket.addEventListener("open", () => {
       let ra = 16.708;

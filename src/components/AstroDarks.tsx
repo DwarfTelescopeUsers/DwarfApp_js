@@ -1,23 +1,22 @@
-import { URI, takeAstroDarks, binning2x2 } from "@/lib/dwarf_api";
+import { wsURL, binning2x2, takeAstroDarks } from "@/lib/dwarf2_api/";
 
 export default function AstroDarks() {
   function takeAstroDarksHandler() {
-    const socket = new WebSocket(URI);
+    const socket = new WebSocket(wsURL);
 
     socket.addEventListener("open", () => {
       let binning = binning2x2;
-      let gain = 10;
       let exposure = 8;
-      takeAstroDarks(socket, binning, gain, exposure);
+      takeAstroDarks(socket, binning, exposure);
     });
 
     socket.addEventListener("message", (event) => {
       let message = JSON.parse(event.data);
-      console.log(message);
+      console.log("takeAstroDarks:", message);
     });
 
     socket.addEventListener("error", (err) => {
-      console.error("Error:", err);
+      console.error("takeAstroDarks error:", err);
     });
   }
 

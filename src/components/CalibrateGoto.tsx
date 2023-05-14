@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 
-import { URI, calibrateGoto } from "@/lib/dwarf_api";
+import { wsURL, calibrateGoto } from "@/lib/dwarf2_api";
 import { ConnectionContext } from "@/stores/ConnectionContext";
 
 export default function CalibrateGoto() {
@@ -11,7 +11,7 @@ export default function CalibrateGoto() {
   const [connecting, setConnecting] = useState(false);
 
   function calibrateGotoHandler() {
-    const socket = new WebSocket(URI);
+    const socket = new WebSocket(wsURL);
 
     socket.addEventListener("open", () => {
       setConnecting(true);

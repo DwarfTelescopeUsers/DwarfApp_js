@@ -1,26 +1,26 @@
 import { useState, useContext, useEffect, useCallback } from "react";
 
 import {
-  URI,
-  cameraStatus,
+  wsURL,
   statusTelephotoCmd,
-  queryShotField,
   queryShotFieldCmd,
-} from "@/lib/dwarf_api";
+  cameraSettings,
+  queryShotField,
+} from "@/lib/dwarf2_api";
 import { ConnectionContext } from "@/stores/ConnectionContext";
 import { roundExposure } from "@/lib/math_utils";
 
 export default function CameraStatus() {
   let connectionCtx = useContext(ConnectionContext);
 
-  const [cameraStatusData, setCameraStatusData] = useState<any>(null);
+  const [cameraSettingsData, setCameraStatusData] = useState<any>(null);
   const [shotFieldData, setShotFieldData] = useState<any>(null);
 
   const getCameraStatus = useCallback(() => {
-    const socket = new WebSocket(URI);
+    const socket = new WebSocket(wsURL);
 
     socket.addEventListener("open", () => {
-      cameraStatus(socket);
+      cameraSettings(socket);
     });
 
     socket.addEventListener("message", (event) => {
@@ -46,7 +46,7 @@ export default function CameraStatus() {
   }, []); // eslint-disable-line
 
   const getShotField = () => {
-    const socket = new WebSocket(URI);
+    const socket = new WebSocket(wsURL);
 
     socket.addEventListener("open", () => {
       queryShotField(socket, connectionCtx.binning || 1);
@@ -77,8 +77,8 @@ export default function CameraStatus() {
       <button className="btn btn-primary mb-3" onClick={getCameraStatus}>
         Update
       </button>
-      {cameraStatusData && (
-        <pre>{JSON.stringify(cameraStatusData, null, 2)}</pre>
+      {cameraSettingsData && (
+        <pre>{JSON.stringify(cameraSettingsData, null, 2)}</pre>
       )}
       {shotFieldData && <pre>{JSON.stringify(shotFieldData, null, 2)}</pre>}
     </>

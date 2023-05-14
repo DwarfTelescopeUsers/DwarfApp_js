@@ -2,16 +2,17 @@ import { useState } from "react";
 import Link from "next/link";
 
 import {
-  URI,
+  wsURL,
   telephotoCamera,
   telephotoURL,
   wideangleCamera,
   wideangleURL,
-  turnOnCamera,
   turnOnCameraCmd,
-  turnOffCamera,
   turnOffCameraCmd,
-} from "@/lib/dwarf_api";
+  binning2x2,
+  turnOnCamera,
+  turnOffCamera,
+} from "@/lib/dwarf2_api";
 import styles from "@/components/DwarfCameras.module.css";
 
 export default function DwarfCameras() {
@@ -19,10 +20,10 @@ export default function DwarfCameras() {
   const [wideangleCameraStatus, setWideangleCameraStatus] = useState("on");
 
   function turnOnCameraHandler(cameraId: number) {
-    let socket = new WebSocket(URI);
+    let socket = new WebSocket(wsURL);
 
     socket.addEventListener("open", () => {
-      turnOnCamera(socket, cameraId);
+      turnOnCamera(socket, binning2x2, cameraId);
     });
 
     socket.addEventListener("message", (event) => {
@@ -42,7 +43,7 @@ export default function DwarfCameras() {
   }
 
   function turnOffCameraHandler(cameraId: number) {
-    let socket = new WebSocket(URI);
+    let socket = new WebSocket(wsURL);
 
     socket.addEventListener("open", () => {
       turnOffCamera(socket, cameraId);

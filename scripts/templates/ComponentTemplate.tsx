@@ -1,8 +1,8 @@
-import { URI, xx_command } from "@/lib/dwarf_api";
+import { wsURL, xx_command } from "@/lib/dwarf_api";
 
 export default function xx_component() {
   function xx_commandHandler() {
-    const socket = new WebSocket(URI);
+    const socket = new WebSocket(wsURL);
 
     socket.addEventListener("open", () => {
       xx_command(socket);

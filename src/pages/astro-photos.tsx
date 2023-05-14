@@ -3,7 +3,7 @@ import Head from "next/head";
 import Link from "next/link";
 
 import { ConnectionContext } from "@/stores/ConnectionContext";
-import CameraStatus from "@/components/CameraStatus";
+import CameraStatus from "@/components/CameraSettings";
 import SetISPSettings from "@/components/SetISPSettings";
 import ManualGoto from "@/components/ManualGoto";
 import { useSetupConnection } from "@/hooks/useSetupConnection";

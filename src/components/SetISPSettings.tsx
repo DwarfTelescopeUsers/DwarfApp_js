@@ -4,14 +4,14 @@ import { useContext } from "react";
 import { ConnectionContext } from "@/stores/ConnectionContext";
 import { saveISPSettingsDB } from "@/db/db_utils";
 import {
-  URI,
+  wsURL,
   telephotoCamera,
-  setExposureD2,
-  setExposureModeD2,
-  setGainModeD2,
-  setGainD2,
-  setIRD2,
-} from "@/lib/dwarf_api";
+  setExposure,
+  setExposureMode,
+  setGainMode,
+  setGain,
+  setIR,
+} from "@/lib/dwarf2_api";
 import { range } from "@/lib/math_utils";
 
 export default function SetISPSettings() {
@@ -53,15 +53,15 @@ export default function SetISPSettings() {
   }
 
   function updateTelescope(gain: number, exposure: number, ir: number) {
-    const socket = new WebSocket(URI);
+    const socket = new WebSocket(wsURL);
     let camera = telephotoCamera;
 
     socket.addEventListener("open", () => {
-      setExposureModeD2(socket, camera, "manual");
-      setExposureD2(socket, camera, exposure);
-      setGainModeD2(socket, camera, "manual");
-      setGainD2(socket, camera, gain);
-      setIRD2(socket, ir);
+      setExposureMode(socket, camera, "manual");
+      setExposure(socket, camera, exposure);
+      setGainMode(socket, camera, "manual");
+      setGain(socket, camera, gain);
+      setIR(socket, ir);
     });
 
     socket.addEventListener("message", (event) => {

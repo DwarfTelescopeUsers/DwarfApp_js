@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 
-import { URI, cameraStatus, statusTelephotoCmd } from "@/lib/dwarf_api";
+import { wsURL, statusTelephotoCmd, cameraSettings } from "@/lib/dwarf2_api";
 import { ConnectionContext } from "@/stores/ConnectionContext";
 import { saveConnectionStatusDB } from "@/db/db_utils";
 
@@ -12,10 +12,10 @@ export default function ConnectCamera() {
   function checkConnection() {
     setConnecting(true);
 
-    const socket = new WebSocket(URI);
+    const socket = new WebSocket(wsURL);
 
     socket.addEventListener("open", () => {
-      cameraStatus(socket);
+      cameraSettings(socket);
     });
 
     // close socket is request takes too long
