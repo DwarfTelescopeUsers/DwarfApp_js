@@ -23,6 +23,7 @@ export default function DwarfCameras() {
     let socket = new WebSocket(wsURL);
 
     socket.addEventListener("open", () => {
+      console.log("start turnOnCamera...");
       turnOnCamera(socket, binning2x2, cameraId);
     });
 
@@ -46,6 +47,7 @@ export default function DwarfCameras() {
     let socket = new WebSocket(wsURL);
 
     socket.addEventListener("open", () => {
+      console.log("start turnOffCamera...");
       turnOffCamera(socket, cameraId);
     });
 

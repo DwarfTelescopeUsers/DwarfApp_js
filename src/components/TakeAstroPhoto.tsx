@@ -11,6 +11,8 @@ export default function TakeAstroPhoto() {
     const socket = new WebSocket(wsURL);
 
     socket.addEventListener("open", () => {
+      console.log("start takeAstroPhoto...");
+
       let ra = 16.708;
       let dec = 36.414;
 
@@ -27,11 +29,11 @@ export default function TakeAstroPhoto() {
 
     socket.addEventListener("message", (event) => {
       let message = JSON.parse(event.data);
-      console.log("message", message);
+      console.log("takeAstroPhoto:", message);
     });
 
     socket.addEventListener("error", (err) => {
-      console.log("Error", err);
+      console.log("takeAstroPhoto error:", err);
     });
   }
   return (

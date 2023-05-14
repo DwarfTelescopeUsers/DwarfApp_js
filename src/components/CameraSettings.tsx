@@ -20,6 +20,7 @@ export default function CameraStatus() {
     const socket = new WebSocket(wsURL);
 
     socket.addEventListener("open", () => {
+      console.log("start cameraSettings...");
       cameraSettings(socket);
     });
 
@@ -33,13 +34,13 @@ export default function CameraStatus() {
 
         connectionCtx.setBinning(connectionCtx.binning || 1);
       }
-      console.log("ok", message);
+      console.log("cameraStatus:", message);
       getShotField();
     });
 
     socket.addEventListener("error", (message) => {
       setCameraStatusData(message);
-      console.log("err", message);
+      console.log("cameraStatus error:", message);
     });
     // NOTE: don't pass in connectionCtx as dependency so getCameraStatus is only
     // called once on page load
@@ -49,6 +50,7 @@ export default function CameraStatus() {
     const socket = new WebSocket(wsURL);
 
     socket.addEventListener("open", () => {
+      console.log("start queryShotField...");
       queryShotField(socket, connectionCtx.binning || 1);
     });
 
@@ -57,12 +59,12 @@ export default function CameraStatus() {
       if (message.interface === queryShotFieldCmd) {
         setShotFieldData(message);
       }
-      console.log("ok", message);
+      console.log("queryShotField:", message);
     });
 
     socket.addEventListener("error", (message) => {
       setShotFieldData(message);
-      console.log("err", message);
+      console.log("queryShotField error:", message);
     });
   };
 

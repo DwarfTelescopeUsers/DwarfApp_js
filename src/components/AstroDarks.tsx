@@ -5,6 +5,7 @@ export default function AstroDarks() {
     const socket = new WebSocket(wsURL);
 
     socket.addEventListener("open", () => {
+      console.log("start takeAstroDarks...");
       let binning = binning2x2;
       let exposure = 8;
       takeAstroDarks(socket, binning, exposure);

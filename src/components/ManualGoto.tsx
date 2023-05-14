@@ -22,17 +22,18 @@ export default function ExecuteGoto() {
     let lon = connectionCtx.longitude;
 
     socket.addEventListener("open", () => {
+      console.log("start startGoto...");
       let planet = null;
       startGoto(socket, planet, ra, declination, lat as number, lon as number);
     });
 
     socket.addEventListener("message", (event) => {
       let message = JSON.parse(event.data);
-      console.log(message);
+      console.log("startGoto:", message);
     });
 
     socket.addEventListener("error", (message) => {
-      console.log("err", message);
+      console.log("startGoto error:", message);
     });
   }
 

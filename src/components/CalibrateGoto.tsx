@@ -14,6 +14,7 @@ export default function CalibrateGoto() {
     const socket = new WebSocket(wsURL);
 
     socket.addEventListener("open", () => {
+      console.log("start calibrateGoto...");
       setConnecting(true);
 
       if (connectionCtx.latitude && connectionCtx.longitude) {

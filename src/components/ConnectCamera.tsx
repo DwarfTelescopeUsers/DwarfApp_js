@@ -15,6 +15,7 @@ export default function ConnectCamera() {
     const socket = new WebSocket(wsURL);
 
     socket.addEventListener("open", () => {
+      console.log("start cameraSettings...");
       cameraSettings(socket);
     });
 
@@ -31,7 +32,7 @@ export default function ConnectCamera() {
       setConnecting(false);
 
       let message = JSON.parse(event.data);
-      console.log(message);
+      console.log("cameraSettings:", message);
       if (message.interface === statusTelephotoCmd) {
         connectionCtx.setConnectionStatus(true);
         connectionCtx.setInitialConnectionTime(Date.now());
@@ -39,7 +40,8 @@ export default function ConnectCamera() {
       }
     });
 
-    socket.addEventListener("error", () => {
+    socket.addEventListener("error", (error) => {
+      console.log("cameraSettings error:", error);
       clearTimeout(closeSocketTimer);
       setConnecting(false);
       connectionCtx.setConnectionStatus(false);

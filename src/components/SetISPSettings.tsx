@@ -57,6 +57,7 @@ export default function SetISPSettings() {
     let camera = telephotoCamera;
 
     socket.addEventListener("open", () => {
+      console.log("start set isp...");
       setExposureMode(socket, camera, "manual");
       setExposure(socket, camera, exposure);
       setGainMode(socket, camera, "manual");
@@ -66,11 +67,11 @@ export default function SetISPSettings() {
 
     socket.addEventListener("message", (event) => {
       let message = JSON.parse(event.data);
-      console.log(message);
+      console.log("set isp:", message);
     });
 
     socket.addEventListener("error", (message) => {
-      console.log("err", message);
+      console.log("set isp err:", message);
     });
   }
 

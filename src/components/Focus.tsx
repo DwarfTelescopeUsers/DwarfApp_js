@@ -12,17 +12,18 @@ export default function AutoFocus() {
     const socket = new WebSocket(wsURL);
 
     socket.addEventListener("open", () => {
+      console.log("start autoFocus...");
       autoFocus(socket);
     });
 
     socket.addEventListener("message", (event) => {
       let message = JSON.parse(event.data);
-      console.log("message", message);
+      console.log("autoFocus: ", message);
       setStatus((prev) => prev.concat(message));
     });
 
     socket.addEventListener("error", (err) => {
-      console.log("Error", err);
+      console.log("autoFocus err:", err);
     });
   }
 
