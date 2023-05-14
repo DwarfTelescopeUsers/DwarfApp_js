@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 
-import { URI, setupGoto } from "@/lib/dwarf_api";
+import { URI, calibrateGoto } from "@/lib/dwarf_api";
 import { ConnectionContext } from "@/stores/ConnectionContext";
 
 export default function CalibrateGoto() {
@@ -10,27 +10,27 @@ export default function CalibrateGoto() {
   const [status, setStatus] = useState<any[]>([]);
   const [connecting, setConnecting] = useState(false);
 
-  function gotoCalibratation() {
+  function calibrateGotoHandler() {
     const socket = new WebSocket(URI);
 
     socket.addEventListener("open", () => {
       setConnecting(true);
 
       if (connectionCtx.latitude && connectionCtx.longitude) {
-        setupGoto(socket, connectionCtx.latitude, connectionCtx.longitude);
+        calibrateGoto(socket, connectionCtx.latitude, connectionCtx.longitude);
       }
     });
 
     socket.addEventListener("message", (event) => {
       setConnecting(false);
       let message = JSON.parse(event.data);
-      console.log("message", message);
+      console.log("calibrateGoto:", message);
       setStatus((prev) => prev.concat(message));
     });
 
     socket.addEventListener("error", (err) => {
       setConnecting(false);
-      console.log("Error", err);
+      console.log("calibrateGoto error:", err);
     });
   }
 
@@ -55,7 +55,7 @@ export default function CalibrateGoto() {
         API Note: The API does not currently return info about whether the
         calibration is ok or failed.
       </p>
-      <button className="btn btn-primary" onClick={gotoCalibratation}>
+      <button className="btn btn-primary" onClick={calibrateGotoHandler}>
         Calibrate
       </button>
 

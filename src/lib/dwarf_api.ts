@@ -93,7 +93,7 @@ const statusWideangleCmd = 10217;
 // ===============
 
 // goto
-const setupGotoCmd = 11205;
+const calibrateGotoCmd = 11205;
 
 const startGotoCmd = 11203;
 
@@ -251,14 +251,13 @@ export function autoFocus(
   socketSend(socket, options);
 }
 
-export function setupGoto(
+export function calibrateGoto(
   socket: WebSocket,
   latitude: number,
   longitude: number
 ) {
   console.log("setup goto...");
   let options = {
-    interface: setupGotoCmd,
     camId: telephotoCamera,
     lon: longitude,
     lat: latitude,
