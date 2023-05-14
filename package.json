@@ -13,7 +13,8 @@
     "zipsite": "npm run build &&  tar -czvf DwarfApp.tar.gz DwarfApp && rm -rf DwarfApp",
     "test": "jest",
     "test:watch": "jest . --watch",
-    "test:ci": "jest --ci"
+    "test:ci": "jest --ci",
+    "create_component": "node ./scripts/generate_component.js"
   },
   "dependencies": {
     "@types/node": "20.1.0",
