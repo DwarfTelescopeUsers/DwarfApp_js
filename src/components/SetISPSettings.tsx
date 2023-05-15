@@ -1,98 +1,115 @@
-import type { FormEvent, ChangeEvent } from "react";
+import type { ChangeEvent } from "react";
 import { useContext } from "react";
 
 import { ConnectionContext } from "@/stores/ConnectionContext";
-import { saveISPSettingsDB } from "@/db/db_utils";
+import {
+  saveBinningDB,
+  saveGainDB,
+  saveFileFormatDB,
+  saveExposureDB,
+  saveIRDB,
+} from "@/db/db_utils";
+
 import {
   wsURL,
   telephotoCamera,
   setExposure,
+  setExposureValueCmd,
   setExposureMode,
-  setGainMode,
+  setExposureModeCmd,
   setGain,
+  setGainValueCmd,
+  setGainMode,
+  setGainModeCmd,
   setIR,
+  setIRCmd,
 } from "@/lib/dwarf2_api";
 import { range } from "@/lib/math_utils";
 
 export default function SetISPSettings() {
   let connectionCtx = useContext(ConnectionContext);
 
-  function submitHandler(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-
-    const formData = new FormData(e.currentTarget);
-    const formGain = formData.get("gain");
-    const formExposure = formData.get("exposure");
-    const formIr = formData.get("ir");
-    const formBinning = formData.get("binning");
-    const formFileFormat = formData.get("fileFormat");
-
-    if (formGain && formExposure && formIr && formBinning && formFileFormat) {
-      saveISPSettingsDB(
-        JSON.stringify({
-          gain: Number(formGain),
-          exposure: Number(formExposure),
-          ir: Number(formIr),
-          binning: Number(formBinning),
-          fileFormat: Number(formFileFormat),
-        })
-      );
-      connectionCtx.setGain(Number(formGain));
-      connectionCtx.setExposure(Number(formExposure));
-      connectionCtx.setIR(Number(formIr));
-      connectionCtx.setBinning(Number(formBinning));
-      connectionCtx.setFileFormat(Number(formFileFormat));
-
-      // NOTE: can't use useContext values (connectionCtx.gain) to get the
-      // latest values, so we need to pass in the form data to updateTelescope
-
-      // TODO: save binning, file format to telescope if DL adds
-      // set binning , set , file format command to api
-      updateTelescope(Number(formGain), Number(formExposure), Number(formIr));
-    }
-  }
-
-  function updateTelescope(gain: number, exposure: number, ir: number) {
+  function updateTelescope(type: string, value: number) {
     const socket = new WebSocket(wsURL);
     let camera = telephotoCamera;
+    let commands = [
+      setExposureModeCmd,
+      setExposureValueCmd,
+      setGainValueCmd,
+      setGainModeCmd,
+      setIRCmd,
+    ];
 
     socket.addEventListener("open", () => {
-      console.log("start set isp...");
-      setExposureMode(socket, camera, "manual");
-      setExposure(socket, camera, exposure);
-      setGainMode(socket, camera, "manual");
-      setGain(socket, camera, gain);
-      setIR(socket, ir);
+      console.log(`start set ${type}...`);
+      if (type === "exposure") {
+        setExposureMode(socket, camera, "manual");
+        setExposure(socket, camera, value);
+      } else if (type === "gain") {
+        setGainMode(socket, camera, "manual");
+        setGain(socket, camera, value);
+      } else if (type === "IR") {
+        setIR(socket, value);
+      }
     });
 
     socket.addEventListener("message", (event) => {
       let message = JSON.parse(event.data);
-      console.log("set isp:", message);
+      if (commands.includes(message.interface)) {
+        console.log(`set ${type}:`, message);
+      } else {
+        console.log(message);
+      }
     });
 
     socket.addEventListener("error", (message) => {
-      console.log("set isp err:", message);
+      console.log(`set ${type} error:`, message);
     });
   }
 
-  function changeIRHandler(e: ChangeEvent<HTMLSelectElement>) {
-    connectionCtx.setIR(Number(e.target.value));
-  }
-
   function changeBinningHandler(e: ChangeEvent<HTMLSelectElement>) {
-    connectionCtx.setBinning(Number(e.target.value));
+    if (e.target.value === "") return;
+
+    let value = Number(e.target.value);
+    connectionCtx.setBinning(value);
+    saveBinningDB(value);
+    // TODO: save binning to telescope if DL adds interface to api
   }
 
   function changeExposureHandler(e: ChangeEvent<HTMLSelectElement>) {
-    connectionCtx.setExposure(Number(e.target.value));
-  }
+    if (e.target.value === "") return;
 
-  function changeGainHandler(e: ChangeEvent<HTMLSelectElement>) {
-    connectionCtx.setGain(Number(e.target.value));
+    let value = Number(e.target.value);
+    connectionCtx.setExposure(value);
+    saveExposureDB(value);
+    updateTelescope("exposure", value);
   }
 
   function changeFileFormatHandler(e: ChangeEvent<HTMLSelectElement>) {
-    connectionCtx.setFileFormat(Number(e.target.value));
+    if (e.target.value === "") return;
+
+    let value = Number(e.target.value);
+    connectionCtx.setFileFormat(value);
+    saveFileFormatDB(value);
+    // TODO: save file format to telescope if DL adds interface to api
+  }
+
+  function changeGainHandler(e: ChangeEvent<HTMLSelectElement>) {
+    if (e.target.value === "") return;
+
+    let value = Number(e.target.value);
+    connectionCtx.setGain(value);
+    saveGainDB(value);
+    updateTelescope("gain", value);
+  }
+
+  function changeIRHandler(e: ChangeEvent<HTMLSelectElement>) {
+    if (e.target.value === "") return;
+
+    let value = Number(e.target.value);
+    connectionCtx.setIR(value);
+    saveIRDB(value);
+    updateTelescope("IR", value);
   }
 
   const allowedExposures = [
@@ -105,7 +122,8 @@ export default function SetISPSettings() {
   return (
     <div>
       <h2>Camera Settings</h2>
-      <form onSubmit={submitHandler}>
+
+      <form>
         <div className="row mb-3">
           <div className="col-sm-4">
             <label htmlFor="gain" className="form-label">
@@ -119,6 +137,9 @@ export default function SetISPSettings() {
               onChange={(e) => changeGainHandler(e)}
               value={connectionCtx.gain}
             >
+              <option selected value="">
+                Select
+              </option>
               {allowedGains.map((exp) => (
                 <option key={exp} value={exp}>
                   {exp}
@@ -141,6 +162,9 @@ export default function SetISPSettings() {
               onChange={(e) => changeExposureHandler(e)}
               value={connectionCtx.exposure}
             >
+              <option selected value="">
+                Select
+              </option>
               {allowedExposures.map((exp) => (
                 <option key={exp} value={exp}>
                   {exp}
@@ -163,8 +187,11 @@ export default function SetISPSettings() {
               onChange={(e) => changeIRHandler(e)}
               value={connectionCtx.IR?.toString()}
             >
-              <option value={"0"}>Cut</option>
-              <option value={"3"}>Pass</option>
+              <option selected value="">
+                Select
+              </option>
+              <option value="0">Cut</option>
+              <option value="3">Pass</option>
             </select>
           </div>
         </div>
@@ -182,8 +209,11 @@ export default function SetISPSettings() {
               onChange={(e) => changeBinningHandler(e)}
               value={connectionCtx.binning?.toString()}
             >
-              <option value={"0"}>1x1</option>
-              <option value={"1"}>2x2</option>
+              <option selected value="">
+                Select
+              </option>
+              <option value="0">1x1</option>
+              <option value="1">2x2</option>
             </select>
           </div>
         </div>
@@ -201,13 +231,14 @@ export default function SetISPSettings() {
               onChange={(e) => changeFileFormatHandler(e)}
               value={connectionCtx.fileFormat?.toString()}
             >
-              <option value={"0"}>FITS</option>
-              <option value={"1"}>TIFF</option>
+              <option selected value="">
+                Select
+              </option>
+              <option value="0">FITS</option>
+              <option value="1">TIFF</option>
             </select>
           </div>
         </div>
-
-        <button className="btn btn-primary mt-2">Submit</button>
       </form>
     </div>
   );

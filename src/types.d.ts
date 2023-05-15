@@ -34,3 +34,8 @@ export type CoordinatesData = {
   latitude?: number;
   longitude?: number;
 };
+
+export type RADeclinationData = {
+  RA?: number;
+  declination?: number;
+};

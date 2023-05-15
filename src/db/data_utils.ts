@@ -32,7 +32,7 @@ export function fetchConnectionStatus(
   if (connectionCtx.connectionStatus !== undefined) {
     return connectionCtx.connectionStatus;
   } else if (status !== undefined) {
-    return status.connectionStatus;
+    return status;
   }
 }
 

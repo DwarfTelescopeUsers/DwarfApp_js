@@ -1,24 +1,18 @@
 import { olderThanHours } from "@/lib/math_utils";
-
-export function fetchCoordinatesDB() {
-  let lat = localStorage.getItem("latitude");
-  let lon = localStorage.getItem("longitude");
-  if (typeof lat === "string" && typeof lon === "string") {
-    return { latitude: Number(lat), longitude: Number(lon) };
-  } else {
-    return {};
-  }
-}
+import { CoordinatesData, RADeclinationData } from "@/types";
 
 export function saveCoordinatesDB(latitude: number, longitude: number) {
   localStorage.setItem("latitude", latitude.toString());
   localStorage.setItem("longitude", longitude.toString());
 }
 
-export function fetchConnectionStatusDB() {
-  let status = localStorage.getItem("connectionStatus");
-  if (status) {
-    return { connectionStatus: status === "true" };
+export function fetchCoordinatesDB(): CoordinatesData {
+  let lat = localStorage.getItem("latitude");
+  let lon = localStorage.getItem("longitude");
+  if (typeof lat === "string" && typeof lon === "string") {
+    return { latitude: Number(lat), longitude: Number(lon) };
+  } else {
+    return {};
   }
 }
 
@@ -29,14 +23,17 @@ export function saveConnectionStatusDB(status: boolean) {
   localStorage.setItem("connectionStatus", status ? "true" : "false");
 }
 
-export function saveISPSettingsDB(options: any) {
-  localStorage.setItem("ispSettings", options);
+export function fetchConnectionStatusDB(): boolean | undefined {
+  let status = localStorage.getItem("connectionStatus");
+  if (status) {
+    return status === "true";
+  }
 }
 
-export function fetchISPSettingsDB() {
-  let settings = localStorage.getItem("ispSettings");
-  if (settings) {
-    return JSON.parse(settings);
+export function fetchInitialConnectionTimeDB(): number | undefined {
+  let time = localStorage.getItem("initialConnectionTime");
+  if (time) {
+    return Number(time);
   }
 }
 
@@ -45,7 +42,7 @@ export function saveRaDecDB(RA: number, declination: number): void {
   localStorage.setItem("declination", declination.toString());
 }
 
-export function fetchRaDecDB() {
+export function fetchRaDecDB(): RADeclinationData {
   let RA = localStorage.getItem("RA");
   let dec = localStorage.getItem("declination");
   if (typeof RA === "string" && typeof dec === "string") {
@@ -55,19 +52,73 @@ export function fetchRaDecDB() {
   }
 }
 
-export function expiredSession() {
+export function saveBinningDB(value: number): void {
+  localStorage.setItem("binning", value.toString());
+}
+
+export function fetchBinningDB(): number | undefined {
+  let data = localStorage.getItem("binning");
+  if (data) return Number(data);
+}
+
+export function saveExposureDB(value: number): void {
+  localStorage.setItem("exposure", value.toString());
+}
+
+export function fetchExposureDB(): number | undefined {
+  let data = localStorage.getItem("exposure");
+  if (data) return Number(data);
+}
+
+export function saveFileFormatDB(value: number): void {
+  localStorage.setItem("fileFormat", value.toString());
+}
+
+export function fetchFileFormatDB(): number | undefined {
+  let data = localStorage.getItem("fileFormat");
+  if (data) return Number(data);
+}
+
+export function saveGainDB(value: number): void {
+  localStorage.setItem("gain", value.toString());
+}
+
+export function fetchGainDB(): number | undefined {
+  let data = localStorage.getItem("gain");
+  if (data) return Number(data);
+}
+
+export function saveIRDB(value: number): void {
+  localStorage.setItem("IR", value.toString());
+}
+
+export function fetchIRDB(): number | undefined {
+  let data = localStorage.getItem("IR");
+  if (data) return Number(data);
+}
+
+export function expiredSession(): boolean | undefined {
   let prevTime = localStorage.getItem("initialConnectionTime");
   if (prevTime) {
     return olderThanHours(Number(prevTime), 12);
   }
 }
 
-export function deleteSettings() {
+export function deleteSettings(): void {
   [
+    "connectionStatus",
+    "initialConnectionTime",
+
     "latitude",
     "longitude",
-    "connectionStatus",
-    "ispSettings",
-    "initialConnectionTime",
+    "RA",
+    "declination",
+
+    "gain",
+    "exposure",
+    "IR",
+    "binning",
+
+    "fileFormat",
   ].forEach((item) => localStorage.removeItem(item));
 }

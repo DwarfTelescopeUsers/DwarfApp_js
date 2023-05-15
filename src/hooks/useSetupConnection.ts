@@ -26,7 +26,7 @@ export function useSetupConnection() {
       if (connectionCtx.connectionStatus === undefined) {
         let statusDB = fetchConnectionStatusDB();
         if (statusDB !== undefined) {
-          connectionCtx.setConnectionStatus(statusDB.connectionStatus);
+          connectionCtx.setConnectionStatus(statusDB);
         }
       }
       if (connectionCtx.latitude === undefined) {
