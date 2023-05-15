@@ -1,6 +1,11 @@
 import { useContext, useState } from "react";
 
-import { wsURL, statusTelephotoCmd, cameraSettings } from "@/lib/dwarf2_api";
+import {
+  wsURL,
+  statusTelephotoCmd,
+  statusWideangleCmd,
+  cameraSettings,
+} from "@/lib/dwarf2_api";
 import { ConnectionContext } from "@/stores/ConnectionContext";
 import { saveConnectionStatusDB } from "@/db/db_utils";
 
@@ -32,11 +37,16 @@ export default function ConnectCamera() {
       setConnecting(false);
 
       let message = JSON.parse(event.data);
-      console.log("cameraSettings:", message);
-      if (message.interface === statusTelephotoCmd) {
+      if (
+        message.interface === statusTelephotoCmd ||
+        message.interface === statusWideangleCmd
+      ) {
+        console.log("cameraSettings:", message);
         connectionCtx.setConnectionStatus(true);
         connectionCtx.setInitialConnectionTime(Date.now());
         saveConnectionStatusDB(true);
+      } else {
+        console.log(message);
       }
     });
 

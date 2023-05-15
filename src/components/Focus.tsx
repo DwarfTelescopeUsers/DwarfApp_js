@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { wsURL, autoFocus } from "@/lib/dwarf2_api";
+import { wsURL, autoFocus, autofocusCmd } from "@/lib/dwarf2_api";
 
 export default function AutoFocus() {
   const [status, setStatus] = useState<any[]>([]);
@@ -18,7 +18,12 @@ export default function AutoFocus() {
 
     socket.addEventListener("message", (event) => {
       let message = JSON.parse(event.data);
-      console.log("autoFocus: ", message);
+      if (message.interface === autofocusCmd) {
+        console.log("autoFocus: ", message);
+      } else {
+        console.log(message);
+      }
+
       setStatus((prev) => prev.concat(message));
     });
 

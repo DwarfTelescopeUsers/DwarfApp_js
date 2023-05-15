@@ -1,4 +1,4 @@
-import { shutDown, wsURL } from "@/lib/dwarf2_api";
+import { shutDown, wsURL, shutDownCmd } from "@/lib/dwarf2_api";
 
 export default function ShutDown() {
   function shutDownHandler() {
@@ -11,7 +11,11 @@ export default function ShutDown() {
 
     socket.addEventListener("message", (event) => {
       let message = JSON.parse(event.data);
-      console.log("shutDown:", message);
+      if (message.interface === shutDownCmd) {
+        console.log("shutDown:", message);
+      } else {
+        console.log(message);
+      }
     });
 
     socket.addEventListener("error", (message) => {

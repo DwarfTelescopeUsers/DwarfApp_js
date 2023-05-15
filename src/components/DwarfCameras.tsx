@@ -34,6 +34,8 @@ export default function DwarfCameras() {
       let message = JSON.parse(event.data);
       if (message.interface === turnOnCameraCmd) {
         console.log("turnOnCamera:", message);
+      } else {
+        console.log(message);
       }
     });
 
@@ -58,6 +60,8 @@ export default function DwarfCameras() {
       let message = JSON.parse(event.data);
       if (message.interface === turnOffCameraCmd) {
         console.log("turnOffCamera:", message);
+      } else {
+        console.log(message);
       }
     });
 

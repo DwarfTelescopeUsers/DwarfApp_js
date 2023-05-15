@@ -3,6 +3,7 @@ import { useState, useContext, useEffect, useCallback } from "react";
 import {
   wsURL,
   statusTelephotoCmd,
+  statusWideangleCmd,
   queryShotFieldCmd,
   cameraSettings,
   queryShotField,
@@ -26,15 +27,21 @@ export default function CameraStatus() {
 
     socket.addEventListener("message", (event) => {
       let message = JSON.parse(event.data);
-      if (message.interface === statusTelephotoCmd) {
+      if (
+        message.interface === statusTelephotoCmd ||
+        message.interface === statusWideangleCmd
+      ) {
+        console.log("cameraStatus:", message);
+
         setCameraStatusData(message);
         connectionCtx.setGain(message.gain);
         connectionCtx.setExposure(roundExposure(message.exp));
         connectionCtx.setIR(message.ir);
 
         connectionCtx.setBinning(connectionCtx.binning || 1);
+      } else {
+        console.log(message);
       }
-      console.log("cameraStatus:", message);
       getShotField();
     });
 
@@ -58,8 +65,10 @@ export default function CameraStatus() {
       let message = JSON.parse(event.data);
       if (message.interface === queryShotFieldCmd) {
         setShotFieldData(message);
+        console.log("queryShotField:", message);
+      } else {
+        console.log(message);
       }
-      console.log("queryShotField:", message);
     });
 
     socket.addEventListener("error", (message) => {

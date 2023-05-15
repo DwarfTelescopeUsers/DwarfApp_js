@@ -1,7 +1,12 @@
 import { useState, useContext } from "react";
 import Link from "next/link";
 
-import { wsURL, calibrateGoto, formatUtcUrl } from "@/lib/dwarf2_api";
+import {
+  wsURL,
+  calibrateGoto,
+  formatUtcUrl,
+  calibrateGotoCmd,
+} from "@/lib/dwarf2_api";
 import { ConnectionContext } from "@/stores/ConnectionContext";
 
 export default function CalibrateGoto() {
@@ -26,7 +31,11 @@ export default function CalibrateGoto() {
     socket.addEventListener("message", (event) => {
       setConnecting(false);
       let message = JSON.parse(event.data);
-      console.log("calibrateGoto:", message);
+      if (message.interface === calibrateGotoCmd) {
+        console.log("calibrateGoto:", message);
+      } else {
+        console.log(message);
+      }
       setStatus((prev) => prev.concat(message));
     });
 

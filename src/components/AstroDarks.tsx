@@ -1,4 +1,9 @@
-import { wsURL, binning2x2, takeAstroDarks } from "@/lib/dwarf2_api/";
+import {
+  wsURL,
+  binning2x2,
+  takeAstroDarks,
+  takeAstroDarkFramesCmd,
+} from "@/lib/dwarf2_api/";
 
 export default function AstroDarks() {
   function takeAstroDarksHandler() {
@@ -13,7 +18,11 @@ export default function AstroDarks() {
 
     socket.addEventListener("message", (event) => {
       let message = JSON.parse(event.data);
-      console.log("takeAstroDarks:", message);
+      if (message.interface === takeAstroDarkFramesCmd) {
+        console.log("takeAstroDarks:", message);
+      } else {
+        console.log(message);
+      }
     });
 
     socket.addEventListener("error", (err) => {

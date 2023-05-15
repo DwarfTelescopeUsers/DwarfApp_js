@@ -1,7 +1,7 @@
 import { useContext } from "react";
 
 import { ConnectionContext } from "@/stores/ConnectionContext";
-import { takeAstroPhoto, wsURL } from "@/lib/dwarf2_api";
+import { takeAstroPhoto, wsURL, takeAstroPhotoCmd } from "@/lib/dwarf2_api";
 import styles from "@/components/TakeAstroPhoto.module.css";
 
 export default function TakeAstroPhoto() {
@@ -29,7 +29,11 @@ export default function TakeAstroPhoto() {
 
     socket.addEventListener("message", (event) => {
       let message = JSON.parse(event.data);
-      console.log("takeAstroPhoto:", message);
+      if (message.interface === takeAstroPhotoCmd) {
+        console.log("takeAstroPhoto:", message);
+      } else {
+        console.log(message);
+      }
     });
 
     socket.addEventListener("error", (err) => {

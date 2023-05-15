@@ -10,7 +10,11 @@ export default function xx_component() {
 
     socket.addEventListener("message", (event) => {
       let message = JSON.parse(event.data);
-      console.log("xx_command:", message);
+      if (message.interface === 123) {
+        console.log("xx_command:", message);
+      } else {
+        console.log(message);
+      }
     });
 
     socket.addEventListener("error", (err) => {

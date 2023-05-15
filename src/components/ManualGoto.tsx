@@ -2,7 +2,7 @@ import { useContext } from "react";
 import type { FormEvent } from "react";
 
 import { ConnectionContext } from "@/stores/ConnectionContext";
-import { wsURL, startGoto } from "@/lib/dwarf2_api";
+import { wsURL, startGoto, startGotoCmd } from "@/lib/dwarf2_api";
 import { saveRaDecDB } from "@/db/db_utils";
 
 export default function ExecuteGoto() {
@@ -35,7 +35,11 @@ export default function ExecuteGoto() {
 
     socket.addEventListener("message", (event) => {
       let message = JSON.parse(event.data);
-      console.log("startGoto:", message);
+      if (message.interface === startGotoCmd) {
+        console.log("startGoto:", message);
+      } else {
+        console.log(message);
+      }
     });
 
     socket.addEventListener("error", (message) => {
