@@ -6,6 +6,7 @@ import {
   deleteSettings,
   fetchConnectionStatusDB,
   fetchCoordinatesDB,
+  fetchRaDecDB,
 } from "@/db/db_utils";
 import { checkConnectionLoop } from "@/lib/connection_status";
 
@@ -33,6 +34,13 @@ export function useSetupConnection() {
         if (coors.latitude) {
           connectionCtx.setLatitude(coors.latitude);
           connectionCtx.setLongitude(coors.longitude);
+        }
+      }
+      if (connectionCtx.RA === undefined) {
+        let data = fetchRaDecDB();
+        if (data.RA) {
+          connectionCtx.setRA(data.RA);
+          connectionCtx.setDeclination(data.declination);
         }
       }
 

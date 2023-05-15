@@ -40,6 +40,21 @@ export function fetchISPSettingsDB() {
   }
 }
 
+export function saveRaDecDB(RA: number, declination: number): void {
+  localStorage.setItem("RA", RA.toString());
+  localStorage.setItem("declination", declination.toString());
+}
+
+export function fetchRaDecDB() {
+  let RA = localStorage.getItem("RA");
+  let dec = localStorage.getItem("declination");
+  if (typeof RA === "string" && typeof dec === "string") {
+    return { RA: Number(RA), declination: Number(dec) };
+  } else {
+    return {};
+  }
+}
+
 export function expiredSession() {
   let prevTime = localStorage.getItem("initialConnectionTime");
   if (prevTime) {

@@ -3,6 +3,7 @@ import type { FormEvent } from "react";
 
 import { ConnectionContext } from "@/stores/ConnectionContext";
 import { wsURL, startGoto } from "@/lib/dwarf2_api";
+import { saveRaDecDB } from "@/db/db_utils";
 
 export default function ExecuteGoto() {
   let connectionCtx = useContext(ConnectionContext);
@@ -13,6 +14,11 @@ export default function ExecuteGoto() {
     const formData = new FormData(e.currentTarget);
     const formRa = Number(formData.get("ra"));
     const formDeclination = Number(formData.get("declination"));
+
+    connectionCtx.setRa(formRa);
+    connectionCtx.setDeclination(formDeclination);
+    saveRaDecDB(formRa, formDeclination);
+
     updateTelescope(formRa, formDeclination);
   }
 
@@ -81,7 +87,6 @@ export default function ExecuteGoto() {
         <button type="submit" className="btn btn-primary">
           Submit
         </button>
-        <span className="ms-3">Coming soon...</span>
       </form>
     </div>
   );
