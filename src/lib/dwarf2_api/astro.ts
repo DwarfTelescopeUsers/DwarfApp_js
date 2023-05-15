@@ -11,7 +11,7 @@ import {
   stopAstroPhotoCmd,
   rawPreviewContinousSuperimpose,
   queryShotFieldCmd,
-  setRawPreviewCmd,
+  setRAWPreviewCmd,
   socketSend,
   now,
 } from "@/lib/dwarf2_api";
@@ -110,7 +110,7 @@ export function updateRawPreviewSource(
   // 1:Single 15s exposure graph
   // 2:Single sheet according to exposure time (more than 15s) composite image
   let options = {
-    interface: setRawPreviewCmd,
+    interface: setRAWPreviewCmd,
     camId: telephotoCamera,
     source,
   };

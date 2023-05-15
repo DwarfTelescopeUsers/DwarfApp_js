@@ -15,7 +15,7 @@ export default function ExecuteGoto() {
     const formRa = Number(formData.get("ra"));
     const formDeclination = Number(formData.get("declination"));
 
-    connectionCtx.setRa(formRa);
+    connectionCtx.setRA(formRa);
     connectionCtx.setDeclination(formDeclination);
     saveRaDecDB(formRa, formDeclination);
 

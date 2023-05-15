@@ -39,7 +39,7 @@ export default function SetISPSettings() {
       );
       connectionCtx.setGain(Number(formGain));
       connectionCtx.setExposure(Number(formExposure));
-      connectionCtx.setIr(Number(formIr));
+      connectionCtx.setIR(Number(formIr));
       connectionCtx.setBinning(Number(formBinning));
       connectionCtx.setFileFormat(Number(formFileFormat));
 
@@ -76,7 +76,7 @@ export default function SetISPSettings() {
   }
 
   function changeIRHandler(e: ChangeEvent<HTMLSelectElement>) {
-    connectionCtx.setIr(Number(e.target.value));
+    connectionCtx.setIR(Number(e.target.value));
   }
 
   function changeBinningHandler(e: ChangeEvent<HTMLSelectElement>) {
@@ -161,7 +161,7 @@ export default function SetISPSettings() {
               id="ir"
               name="ir"
               onChange={(e) => changeIRHandler(e)}
-              value={connectionCtx.ir?.toString()}
+              value={connectionCtx.IR?.toString()}
             >
               <option value={"0"}>Cut</option>
               <option value={"3"}>Pass</option>

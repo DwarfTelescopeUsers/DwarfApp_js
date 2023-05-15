@@ -13,19 +13,19 @@ export type ConnectionContextType = {
   setGain: React.Dispatch<React.SetStateAction<number | undefined>>;
   exposure: number | undefined;
   setExposure: React.Dispatch<React.SetStateAction<number | undefined>>;
-  ir: number | undefined;
-  setIr: React.Dispatch<React.SetStateAction<number | undefined>>;
   binning: number | undefined;
   setBinning: React.Dispatch<React.SetStateAction<number | undefined>>;
   initialConnectionTime: number | undefined;
   setInitialConnectionTime: React.Dispatch<
     React.SetStateAction<number | undefined>
   >;
+  IR: number | undefined;
+  setIR: React.Dispatch<React.SetStateAction<number | undefined>>;
+  RA: number | undefined;
+  setRA: React.Dispatch<React.SetStateAction<number | undefined>>;
   deleteSettings: () => void;
   fileFormat: number | undefined;
   setFileFormat: React.Dispatch<React.SetStateAction<number | undefined>>;
-  ra: number | undefined;
-  setRa: React.Dispatch<React.SetStateAction<number | undefined>>;
   declination: number | undefined;
   setDeclination: React.Dispatch<React.SetStateAction<number | undefined>>;
 };

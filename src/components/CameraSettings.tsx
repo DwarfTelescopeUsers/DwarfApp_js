@@ -30,7 +30,7 @@ export default function CameraStatus() {
         setCameraStatusData(message);
         connectionCtx.setGain(message.gain);
         connectionCtx.setExposure(roundExposure(message.exp));
-        connectionCtx.setIr(message.ir);
+        connectionCtx.setIR(message.ir);
 
         connectionCtx.setBinning(connectionCtx.binning || 1);
       }

@@ -153,7 +153,7 @@ const numberRawImagesCmd = 10014;
 const numberSuperImposedImages = 10023;
 
 // raw preview
-export const setRawPreviewCmd = 10020;
+export const setRAWPreviewCmd = 10020;
 export const rawPreviewContinousSuperimpose = 0;
 const rawPreviewSingle15 = 1;
 const rawPreviewSingleComposite = 2;

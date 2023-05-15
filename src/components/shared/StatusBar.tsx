@@ -15,16 +15,16 @@ export default function StatusBar() {
     connectionCtx.exposure === undefined
       ? "--"
       : `${connectionCtx.exposure} sec`;
-  let ir =
-    connectionCtx.ir === undefined
+  let IR =
+    connectionCtx.IR === undefined
       ? "--"
-      : `${connectionCtx.ir === 0 ? "Cut" : "Pass"}`;
+      : `${connectionCtx.IR === 0 ? "Cut" : "Pass"}`;
   let binning =
     connectionCtx.binning === undefined
       ? "--"
       : `${connectionCtx.binning === 0 ? "1x1" : "2x2"}`;
   let raDec =
-    `RA: ${connectionCtx.ra || "--"}, ` +
+    `RA: ${connectionCtx.RA || "--"}, ` +
     `Dec: ${connectionCtx.declination || "--"}`;
 
   return (
@@ -35,7 +35,7 @@ export default function StatusBar() {
       <br />
       <span>Gain: {gain}</span>
       <span className="ms-4">Exp: {exp}</span>
-      <span className="ms-4">IR: {ir}</span>
+      <span className="ms-4">IR: {IR}</span>
       <span className="ms-4">Binning: {binning}</span>
     </div>
   );
