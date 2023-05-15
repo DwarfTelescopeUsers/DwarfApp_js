@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Link from "next/link";
 
 import {
   wsURL,
@@ -105,9 +104,6 @@ export default function DwarfCameras() {
         alt="livestream for Dwarf 2 telephoto camera"
         className={styles.resize}
       ></img>
-      <Link href={telephotoURL} className="mt-1">
-        {telephotoURL}
-      </Link>
 
       <h2 className="mt-4">
         Wide-angle Camera{" "}
@@ -126,9 +122,6 @@ export default function DwarfCameras() {
         alt="livestream for Dwarf 2 wide angle camera"
         className={styles.resize}
       ></img>
-      <Link href={wideangleURL} className="mt-1">
-        {wideangleURL}
-      </Link>
     </>
   );
 }
