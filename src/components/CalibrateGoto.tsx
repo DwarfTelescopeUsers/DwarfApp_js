@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
+import Link from "next/link";
 
-import { wsURL, calibrateGoto } from "@/lib/dwarf2_api";
+import { wsURL, calibrateGoto, formatUtcUrl } from "@/lib/dwarf2_api";
 import { ConnectionContext } from "@/stores/ConnectionContext";
 
 export default function CalibrateGoto() {
@@ -40,6 +41,9 @@ export default function CalibrateGoto() {
       <h2>Calibrate Goto</h2>
       <p></p>
       <ol>
+        <li>
+          Visit this link to <Link href={formatUtcUrl()}>set the date.</Link>
+        </li>
         <li className="mb-2">
           Point the telescope lens towards an area of the sky where stars,
           planets, or the Moon are visible.
