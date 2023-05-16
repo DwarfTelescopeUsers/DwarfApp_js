@@ -17,9 +17,6 @@ export function fetchCoordinatesDB(): CoordinatesData {
 }
 
 export function saveConnectionStatusDB(status: boolean) {
-  if (status) {
-    localStorage.setItem("initialConnectionTime", Date.now().toString());
-  }
   localStorage.setItem("connectionStatus", status ? "true" : "false");
 }
 
@@ -28,6 +25,10 @@ export function fetchConnectionStatusDB(): boolean | undefined {
   if (status) {
     return status === "true";
   }
+}
+
+export function saveInitialConnectionTimeDB() {
+  localStorage.setItem("initialConnectionTime", Date.now().toString());
 }
 
 export function fetchInitialConnectionTimeDB(): number | undefined {
@@ -121,4 +122,10 @@ export function deleteSettings(): void {
 
     "fileFormat",
   ].forEach((item) => localStorage.removeItem(item));
+}
+
+export function deleteConnectionDB(): void {
+  ["connectionStatus", "initialConnectionTime"].forEach((item) =>
+    localStorage.removeItem(item)
+  );
 }

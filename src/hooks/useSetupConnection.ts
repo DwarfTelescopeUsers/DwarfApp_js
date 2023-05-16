@@ -4,9 +4,14 @@ import { ConnectionContext } from "@/stores/ConnectionContext";
 import {
   expiredSession,
   deleteSettings,
-  fetchConnectionStatusDB,
+  fetchGainDB,
+  fetchBinningDB,
+  fetchExposureDB,
+  fetchFileFormatDB,
+  fetchIRDB,
   fetchCoordinatesDB,
   fetchRaDecDB,
+  fetchInitialConnectionTimeDB,
 } from "@/db/db_utils";
 import { checkConnectionLoop } from "@/lib/connection_status";
 
@@ -16,24 +21,27 @@ export function useSetupConnection() {
   useEffect(() => {
     let timer: any;
 
+    // delete all setings if it is expired
     if (expiredSession()) {
       console.log("expiredSession true");
       deleteSettings();
       connectionCtx.deleteSettings();
     } else {
-      checkConnectionLoop(connectionCtx);
-      // fetch values from DB and set connectionCtx
-      if (connectionCtx.connectionStatus === undefined) {
-        let statusDB = fetchConnectionStatusDB();
-        if (statusDB !== undefined) {
-          connectionCtx.setConnectionStatus(statusDB);
-        }
+      checkConnectionLoop(connectionCtx, timer);
+
+      // continously check connection status
+      if (connectionCtx.connectionStatus) {
+        timer = setInterval(() => {
+          checkConnectionLoop(connectionCtx, timer);
+        }, 90 * 1000);
       }
+
+      // load values from db
       if (connectionCtx.latitude === undefined) {
-        let coors = fetchCoordinatesDB();
-        if (coors.latitude) {
-          connectionCtx.setLatitude(coors.latitude);
-          connectionCtx.setLongitude(coors.longitude);
+        let data = fetchCoordinatesDB();
+        if (data.latitude) {
+          connectionCtx.setLatitude(data.latitude);
+          connectionCtx.setLongitude(data.longitude);
         }
       }
       if (connectionCtx.RA === undefined) {
@@ -43,12 +51,29 @@ export function useSetupConnection() {
           connectionCtx.setDeclination(data.declination);
         }
       }
-
-      // continously check connection status
-      if (connectionCtx.connectionStatus) {
-        timer = setInterval(() => {
-          checkConnectionLoop(connectionCtx, timer);
-        }, 90 * 1000);
+      if (connectionCtx.initialConnectionTime === undefined) {
+        let data = fetchInitialConnectionTimeDB();
+        if (data !== undefined) connectionCtx.setInitialConnectionTime(data);
+      }
+      if (connectionCtx.binning === undefined) {
+        let data = fetchBinningDB();
+        if (data !== undefined) connectionCtx.setBinning(data);
+      }
+      if (connectionCtx.exposure === undefined) {
+        let data = fetchExposureDB();
+        if (data !== undefined) connectionCtx.setExposure(data);
+      }
+      if (connectionCtx.gain === undefined) {
+        let data = fetchGainDB();
+        if (data !== undefined) connectionCtx.setGain(data);
+      }
+      if (connectionCtx.IR === undefined) {
+        let data = fetchIRDB();
+        if (data !== undefined) connectionCtx.setIR(data);
+      }
+      if (connectionCtx.fileFormat === undefined) {
+        let data = fetchFileFormatDB();
+        if (data !== undefined) connectionCtx.setFileFormat(data);
       }
     }
 
