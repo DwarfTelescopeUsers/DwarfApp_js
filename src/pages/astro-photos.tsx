@@ -59,7 +59,7 @@ export default function AstroPhoto() {
   return (
     <>
       <Head>
-        <title>Setup Scope</title>
+        <title>Astro Photos</title>
       </Head>
       <StatusBar mode="astro" />
 

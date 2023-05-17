@@ -15,7 +15,7 @@ export default function SetupScope() {
       <Head>
         <title>Setup Scope</title>
       </Head>
-      <StatusBar />
+      <StatusBar mode="setup" />
 
       <ConnectCamera />
       <hr />

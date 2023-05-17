@@ -65,7 +65,7 @@ export default function StatusBar(props: PropType) {
         <span className="ms-4">Format: {fileFormat}</span>
       </div>
     );
-  } else {
+  } else if (mode === "photo") {
     return (
       <div className="mb-2">
         <span>{connection}</span>
@@ -73,6 +73,13 @@ export default function StatusBar(props: PropType) {
         <br />
         <span>Gain: {gain}</span>
         <span className="ms-4">Exp: {exp}</span>
+      </div>
+    );
+  } else {
+    return (
+      <div className="mb-2">
+        <span>{connection}</span>
+        <span className="ms-4"> {coords}</span>
       </div>
     );
   }
