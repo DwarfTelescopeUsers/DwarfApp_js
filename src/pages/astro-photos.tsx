@@ -12,6 +12,7 @@ import StatusBar from "@/components/shared/StatusBar";
 import Focus from "@/components/Focus";
 import DwarfCameras from "@/components/DwarfCameras";
 import TakeAstroPhoto from "@/components/TakeAstroPhoto";
+import { telephotoCamera } from "@/lib/dwarf2_api";
 
 export default function AstroPhoto() {
   useSetupConnection();
@@ -96,7 +97,7 @@ export default function AstroPhoto() {
           ></button>
         </div>
         <div className="offcanvas-body">
-          <SetISPSettings />
+          <SetISPSettings camera={telephotoCamera} />
           <CameraSettings />
           <hr />
           <Focus />
