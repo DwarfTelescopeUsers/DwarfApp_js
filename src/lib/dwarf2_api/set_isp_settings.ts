@@ -18,6 +18,7 @@ import {
   whiteBalanceScenesValueID,
   setWhiteBalanceColorCmd,
   socketSend,
+  modeManual,
 } from "@/lib/dwarf2_api";
 
 // 3.3.1 brightness
@@ -104,19 +105,12 @@ export function setSharpness(
 export function setExposureMode(
   socket: WebSocket,
   camera = telephotoCamera,
-  mode = "manual"
+  mode = modeManual
 ): void {
-  let modeId;
-  if (camera === telephotoCamera) {
-    modeId = mode === "manual" ? 1 : 0;
-  } else {
-    modeId = mode === "manual" ? 1 : 3;
-  }
-
   let options = {
     interface: setExposureModeCmd,
     camId: camera,
-    mode: modeId,
+    mode: mode,
   };
   socketSend(socket, options);
 }
@@ -141,13 +135,12 @@ export function setExposure(
 export function setGainMode(
   socket: WebSocket,
   camera = telephotoCamera,
-  mode = "manual"
+  mode = modeManual
 ): void {
-  let modeId = mode === "manual" ? 1 : 0;
   let options = {
     interface: setGainModeCmd,
     camId: camera,
-    mode: modeId,
+    mode: mode,
   };
   socketSend(socket, options);
 }
@@ -192,13 +185,12 @@ export function autoFocus(
 export function setWhiteBalanceMode(
   socket: WebSocket,
   camera = telephotoCamera,
-  mode = "manual"
+  mode = modeManual
 ): void {
-  let modeId = mode === "manual" ? 1 : 0;
   let options = {
     interface: setWhiteBalanceModeCmd,
     camId: camera,
-    mode: modeId,
+    mode: mode,
   };
   socketSend(socket, options);
 }

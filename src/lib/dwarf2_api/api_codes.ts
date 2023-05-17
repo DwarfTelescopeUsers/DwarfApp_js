@@ -41,6 +41,9 @@ export const stopTimelapseCmd = 10019;
 // 3.3 ISP settings
 // ===============
 
+export const modeAuto = 0;
+export const modeManual = 1;
+
 // brightness
 export const setBrightnessValueCmd = 10204;
 
@@ -59,6 +62,8 @@ export const setSharpnessValueCmd = 10208;
 // exposure
 export const setExposureModeCmd = 10001;
 export const setExposureValueCmd = 10003;
+export const exposureTelephotoModeAuto = 0;
+export const exposureWideangleModeAuto = 3;
 
 // gain
 export const setGainModeCmd = 10004;
