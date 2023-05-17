@@ -9,6 +9,7 @@ import { useSetupConnection } from "@/hooks/useSetupConnection";
 import StatusBar from "@/components/shared/StatusBar";
 import Focus from "@/components/Focus";
 import DwarfCameras from "@/components/DwarfCameras";
+import TakePhoto from "@/components/TakePhoto";
 import { telephotoCamera } from "@/lib/dwarf2_api";
 
 export default function Photo() {
@@ -82,6 +83,7 @@ export default function Photo() {
           <hr />
           <Focus />
           <hr />
+          <TakePhoto />
         </div>
       </div>
       <div></div>
