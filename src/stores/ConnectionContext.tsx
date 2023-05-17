@@ -17,8 +17,10 @@ export function ConnectionContextProvider({ children }: ProviderProps) {
   >();
   const [declination, setDeclination] = useState<number | undefined>();
   const [exposure, setExposure] = useState<number | undefined>();
+  const [exposureMode, setExposureMode] = useState<number | undefined>();
   const [fileFormat, setFileFormat] = useState<number | undefined>();
   const [gain, setGain] = useState<number | undefined>();
+  const [gainMode, setGainMode] = useState<number | undefined>();
   const [initialConnectionTime, setInitialConnectionTime] = useState<
     number | undefined
   >();
@@ -37,7 +39,9 @@ export function ConnectionContextProvider({ children }: ProviderProps) {
     setDeclination(undefined);
 
     setGain(undefined);
+    setGainMode(undefined);
     setExposure(undefined);
+    setExposureMode(undefined);
     setIR(undefined);
     setBinning(undefined);
 
@@ -53,10 +57,14 @@ export function ConnectionContextProvider({ children }: ProviderProps) {
     setDeclination,
     exposure,
     setExposure,
+    exposureMode,
+    setExposureMode,
     fileFormat,
     setFileFormat,
     gain,
     setGain,
+    gainMode,
+    setGainMode,
     initialConnectionTime,
     setInitialConnectionTime,
     IR,

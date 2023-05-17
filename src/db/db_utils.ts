@@ -71,6 +71,15 @@ export function fetchExposureDB(): number | undefined {
   if (data) return Number(data);
 }
 
+export function saveExposureModeDB(value: number): void {
+  localStorage.setItem("exposureMode", value.toString());
+}
+
+export function fetchExposureModeDB(): number | undefined {
+  let data = localStorage.getItem("exposureMode");
+  if (data) return Number(data);
+}
+
 export function saveFileFormatDB(value: number): void {
   localStorage.setItem("fileFormat", value.toString());
 }
@@ -86,6 +95,15 @@ export function saveGainDB(value: number): void {
 
 export function fetchGainDB(): number | undefined {
   let data = localStorage.getItem("gain");
+  if (data) return Number(data);
+}
+
+export function saveGainModeDB(value: number): void {
+  localStorage.setItem("gainMode", value.toString());
+}
+
+export function fetchGainModeDB(): number | undefined {
+  let data = localStorage.getItem("gainMode");
   if (data) return Number(data);
 }
 
