@@ -7,7 +7,10 @@ import {
   cameraSettings,
 } from "@/lib/dwarf2_api";
 import { ConnectionContext } from "@/stores/ConnectionContext";
-import { saveConnectionStatusDB } from "@/db/db_utils";
+import {
+  saveConnectionStatusDB,
+  saveInitialConnectionTimeDB,
+} from "@/db/db_utils";
 
 export default function ConnectCamera() {
   let connectionCtx = useContext(ConnectionContext);
@@ -45,6 +48,7 @@ export default function ConnectCamera() {
         connectionCtx.setConnectionStatus(true);
         connectionCtx.setInitialConnectionTime(Date.now());
         saveConnectionStatusDB(true);
+        saveInitialConnectionTimeDB();
       } else {
         console.log(message);
       }
