@@ -143,7 +143,20 @@ export function deleteSettings(): void {
 }
 
 export function deleteConnectionDB(): void {
-  ["connectionStatus", "initialConnectionTime"].forEach((item) =>
-    localStorage.removeItem(item)
-  );
+  [
+    "connectionStatus",
+    "initialConnectionTime",
+
+    "RA",
+    "declination",
+
+    "gain",
+    "gainMode",
+    "exposure",
+    "exposureMode",
+    "IR",
+    "binning",
+
+    "fileFormat",
+  ].forEach((item) => localStorage.removeItem(item));
 }

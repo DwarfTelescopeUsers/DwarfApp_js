@@ -27,8 +27,7 @@ export function checkConnectionLoop(
           clearInterval(timer);
         }
 
-        connectionCtx.setConnectionStatus(undefined);
-        connectionCtx.setInitialConnectionTime(undefined);
+        connectionCtx.deleteConnection();
         deleteConnectionDB();
       }
     });

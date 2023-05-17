@@ -33,6 +33,7 @@ export type ConnectionContextType = {
   setRA: React.Dispatch<React.SetStateAction<number | undefined>>;
 
   deleteSettings: () => void;
+  deleteConnection: () => void;
 };
 
 export type CoordinatesData = {

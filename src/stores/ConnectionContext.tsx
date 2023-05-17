@@ -48,6 +48,23 @@ export function ConnectionContextProvider({ children }: ProviderProps) {
     setFileFormat(undefined);
   }
 
+  function deleteConnection() {
+    setConnectionStatus(undefined);
+    setInitialConnectionTime(undefined);
+
+    setRA(undefined);
+    setDeclination(undefined);
+
+    setGain(undefined);
+    setGainMode(undefined);
+    setExposure(undefined);
+    setExposureMode(undefined);
+    setIR(undefined);
+    setBinning(undefined);
+
+    setFileFormat(undefined);
+  }
+
   let context = {
     binning,
     setBinning,
@@ -77,6 +94,7 @@ export function ConnectionContextProvider({ children }: ProviderProps) {
     setRA,
 
     deleteSettings,
+    deleteConnection,
   };
   return (
     <ConnectionContext.Provider value={context}>
