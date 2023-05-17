@@ -110,10 +110,20 @@ export default function CameraStatus() {
         )}
         <p>Shot Field</p>
         {shotFieldData && <pre>{JSON.stringify(shotFieldData, null, 2)}</pre>}
-
-        <button className=" btn btn-primary" onClick={() => getCameraStatus()}>
+        <button
+          className=" btn btn-primary mb-3"
+          onClick={() => getCameraStatus()}
+        >
           Refresh
-        </button>
+        </button>{" "}
+        - fetch settings from Dwarf II
+        <button
+          className=" btn btn-primary"
+          onClick={() => getCameraStatus(true)}
+        >
+          Sync
+        </button>{" "}
+        - fetch settings from Dwarf II, update this app
       </Accordian>
     </>
   );
