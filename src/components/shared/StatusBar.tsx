@@ -53,9 +53,7 @@ export default function StatusBar(props: PropType) {
 
   if (mode === "astro") {
     return (
-      <div className=" mb-2 mt-2">
-        {JSON.stringify(connectionCtx, null, 2)}
-        <br></br>
+      <div className="mb-2">
         <span>{connection}</span>
         <span className="ms-4"> {coords}</span>
         <span className="ms-4">{raDec}</span>
@@ -68,6 +66,6 @@ export default function StatusBar(props: PropType) {
       </div>
     );
   } else {
-    return <div className=" mb-2 mt-2"></div>;
+    return <div className="mb-2"></div>;
   }
 }
