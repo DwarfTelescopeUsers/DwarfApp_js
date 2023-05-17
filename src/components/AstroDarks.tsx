@@ -50,16 +50,8 @@ export default function AstroDarks() {
         </li>
       </ol>
 
-      <p>
-        API Note: The API does not currently return warning about replacing dark
-        frames if they exists.
-      </p>
-      <button
-        className="btn btn-secondary"
-        disabled
-        onClick={takeAstroDarksHandler}
-      >
-        Not Available Yet
+      <button className="btn btn-primary" onClick={takeAstroDarksHandler}>
+        Start
       </button>
     </div>
   );
