@@ -86,7 +86,7 @@ export function takeAstroPhoto(
     gain: gain,
     binning: binning,
     count: count,
-    name: `ASTRO_${now()}`,
+    name: `Astro ${now()}`,
     overlayCount: 1,
     format: fileFormat,
   };
@@ -129,7 +129,7 @@ export function takeAstroDarks(
     interface: takeAstroDarkFramesCmd,
     camId: telephotoCamera,
     count,
-    name: `DWARF_DARK_${now()}`,
+    name: `DWARF_DARK ${now()}`,
     binning: binning,
     darkGain: darkGainDefault,
     darkExposure: exposure,

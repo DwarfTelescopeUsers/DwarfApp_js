@@ -7,6 +7,7 @@ import {
   startTimelapseCmd,
   stopTimelapseCmd,
   socketSend,
+  now,
 } from "@/lib/dwarf2_api";
 
 // 3.2.1 Photograph
@@ -15,7 +16,7 @@ export function takePhoto(
   camera = telephotoCamera,
   photoMode = photoSingleShot,
   count = 1,
-  name = `Photo ${new Date()}`
+  name = `Photo ${now()}`
 ): void {
   let options = {
     interface: takePhotoCmd,
@@ -28,10 +29,7 @@ export function takePhoto(
 }
 
 // 3.2.2 Start recording
-export function startVideo(
-  socket: WebSocket,
-  name = `Video ${new Date()}`
-): void {
+export function startVideo(socket: WebSocket, name = `Video ${now()}`): void {
   let options = {
     interface: startRecordingCmd,
     camId: telephotoCamera,
@@ -54,7 +52,7 @@ export function startTimeLapse(
   socket: WebSocket,
   intervalTime: number,
   outTime: number,
-  name = `Video ${new Date()}`
+  name = `Timelapse ${now()}`
 ): void {
   // intervalTime value: 1s-60s
   let options = {
