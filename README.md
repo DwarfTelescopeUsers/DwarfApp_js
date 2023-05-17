@@ -24,6 +24,10 @@ npm run dev
 
 ## Setup for non-coders
 
+Work in progress.
+
+<!--
+
 If you just want to get the site up and running on your machine, then follow these steps.
 
 1. Download the zipped files for the website.
@@ -36,4 +40,4 @@ If you just want to get the site up and running on your machine, then follow the
 python3 -m http.server
 ```
 
-Go to http://127.0.0.1:8000/ in a browser.
+Go to http://127.0.0.1:8000/ in a browser. -->
