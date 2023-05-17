@@ -7,22 +7,39 @@ export default function StatusBar() {
   let connection = connectionCtx.connectionStatus
     ? "Connected"
     : "Not Connected";
+
   let coords =
     `Lat: ${connectionCtx.latitude?.toFixed(4) || "--"}, ` +
     `Lon: ${connectionCtx.longitude?.toFixed(4) || "--"}`;
-  let gain = connectionCtx.gain == undefined ? "--" : connectionCtx.gain;
-  let exp =
-    connectionCtx.exposure === undefined
-      ? "--"
-      : `${connectionCtx.exposure} sec`;
+
+  let gain: string | number = "";
+  if (connectionCtx.gain == undefined) {
+    gain = "--";
+  } else if (connectionCtx.gainMode === 0) {
+    gain = "Auto";
+  } else {
+    gain = connectionCtx.gain;
+  }
+
+  let exp: string | number = "";
+  if (connectionCtx.exposure == undefined) {
+    exp = "--";
+  } else if (connectionCtx.exposureMode === 0) {
+    exp = "Auto";
+  } else {
+    exp = connectionCtx.exposure;
+  }
+
   let IR =
     connectionCtx.IR === undefined
       ? "--"
       : `${connectionCtx.IR === 0 ? "Cut" : "Pass"}`;
+
   let binning =
     connectionCtx.binning === undefined
       ? "--"
       : `${connectionCtx.binning === 0 ? "1x1" : "2x2"}`;
+
   let raDec =
     `RA: ${connectionCtx.RA?.toFixed(4) || "--"}, ` +
     `Dec: ${connectionCtx.declination?.toFixed(4) || "--"}`;
