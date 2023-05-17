@@ -3,14 +3,13 @@ import Head from "next/head";
 import Link from "next/link";
 
 import { ConnectionContext } from "@/stores/ConnectionContext";
-import CameraStatus from "@/components/CameraSettings";
+import CameraSettings from "@/components/CameraSettings";
 import SetISPSettings from "@/components/SetISPSettings";
 import ManualGoto from "@/components/ManualGoto";
 import { useSetupConnection } from "@/hooks/useSetupConnection";
 import CalibrateGoto from "@/components/CalibrateGoto";
 import StatusBar from "@/components/shared/StatusBar";
 import Focus from "@/components/Focus";
-import Accordian from "@/components/shared/Accordian";
 import DwarfCameras from "@/components/DwarfCameras";
 import TakeAstroPhoto from "@/components/TakeAstroPhoto";
 
@@ -98,6 +97,7 @@ export default function AstroPhoto() {
         </div>
         <div className="offcanvas-body">
           <SetISPSettings />
+          <CameraSettings />
           <hr />
           <Focus />
           <hr />

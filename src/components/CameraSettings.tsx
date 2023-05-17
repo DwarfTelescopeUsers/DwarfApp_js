@@ -1,5 +1,13 @@
-import { useState, useContext, useEffect, useCallback } from "react";
+import { useState, useContext, useEffect } from "react";
 
+import {
+  saveBinningDB,
+  saveGainDB,
+  saveGainModeDB,
+  saveExposureDB,
+  saveExposureModeDB,
+  saveIRDB,
+} from "@/db/db_utils";
 import {
   wsURL,
   statusTelephotoCmd,
@@ -10,6 +18,7 @@ import {
 } from "@/lib/dwarf2_api";
 import { ConnectionContext } from "@/stores/ConnectionContext";
 import { roundExposure } from "@/lib/math_utils";
+import Accordian from "@/components/shared/Accordian";
 
 export default function CameraStatus() {
   let connectionCtx = useContext(ConnectionContext);
@@ -17,7 +26,7 @@ export default function CameraStatus() {
   const [cameraSettingsData, setCameraStatusData] = useState<any>(null);
   const [shotFieldData, setShotFieldData] = useState<any>(null);
 
-  const getCameraStatus = useCallback(() => {
+  const getCameraStatus = (saveSettings = false) => {
     const socket = new WebSocket(wsURL);
 
     socket.addEventListener("open", () => {
@@ -31,27 +40,35 @@ export default function CameraStatus() {
         message.interface === statusTelephotoCmd ||
         message.interface === statusWideangleCmd
       ) {
-        console.log("cameraStatus:", message);
-
+        console.log("cameraSettings:", message);
         setCameraStatusData(message);
-        connectionCtx.setGain(message.gain);
-        connectionCtx.setExposure(roundExposure(message.exp));
-        connectionCtx.setIR(message.ir);
 
-        connectionCtx.setBinning(connectionCtx.binning || 1);
+        if (saveSettings) {
+          connectionCtx.setGain(message.gain);
+          saveGainDB(message.gain);
+          connectionCtx.setGainMode(message.gainMode);
+          saveGainModeDB(message.gainMode);
+
+          connectionCtx.setExposure(roundExposure(message.exp));
+          saveExposureDB(roundExposure(message.exp));
+          connectionCtx.setExposureMode(message.expMode);
+          saveExposureModeDB(message.expMode);
+
+          connectionCtx.setIR(message.ir);
+          saveIRDB(message.ir);
+
+          connectionCtx.setBinning(message.binning);
+          saveBinningDB(message.binning);
+        }
       } else {
         console.log(message);
       }
-      getShotField();
     });
 
     socket.addEventListener("error", (message) => {
-      setCameraStatusData(message);
-      console.log("cameraStatus error:", message);
+      console.log("cameraSettings error:", message);
     });
-    // NOTE: don't pass in connectionCtx as dependency so getCameraStatus is only
-    // called once on page load
-  }, []); // eslint-disable-line
+  };
 
   const getShotField = () => {
     const socket = new WebSocket(wsURL);
@@ -77,21 +94,27 @@ export default function CameraStatus() {
     });
   };
 
-  // fire getCameraStatus on page load so we can set the form values
   useEffect(() => {
-    getCameraStatus();
-  }, [getCameraStatus]);
+    getCameraStatus(true);
+    setTimeout(() => {
+      getShotField();
+    }, 1000);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
-      <h3>Telephoto camera status</h3>
-      <button className="btn btn-primary mb-3" onClick={getCameraStatus}>
-        Update
-      </button>
-      {cameraSettingsData && (
-        <pre>{JSON.stringify(cameraSettingsData, null, 2)}</pre>
-      )}
-      {shotFieldData && <pre>{JSON.stringify(shotFieldData, null, 2)}</pre>}
+      <Accordian text="Display all settings">
+        <p>ISP Parameters</p>
+        {cameraSettingsData && (
+          <pre>{JSON.stringify(cameraSettingsData, null, 2)}</pre>
+        )}
+        <p>Shot Field</p>
+        {shotFieldData && <pre>{JSON.stringify(shotFieldData, null, 2)}</pre>}
+
+        <button className=" btn btn-primary" onClick={() => getCameraStatus()}>
+          Refresh
+        </button>
+      </Accordian>
     </>
   );
 }
