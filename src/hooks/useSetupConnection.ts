@@ -10,7 +10,7 @@ import {
   fetchFileFormatDB,
   fetchIRDB,
   fetchCoordinatesDB,
-  fetchRaDecDB,
+  fetchRADecDB,
   fetchInitialConnectionTimeDB,
 } from "@/db/db_utils";
 import { checkConnectionLoop } from "@/lib/connection_status";
@@ -45,7 +45,7 @@ export function useSetupConnection() {
         }
       }
       if (connectionCtx.RA === undefined) {
-        let data = fetchRaDecDB();
+        let data = fetchRADecDB();
         if (data.RA) {
           connectionCtx.setRA(data.RA);
           connectionCtx.setDeclination(data.declination);

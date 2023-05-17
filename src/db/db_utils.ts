@@ -38,12 +38,12 @@ export function fetchInitialConnectionTimeDB(): number | undefined {
   }
 }
 
-export function saveRaDecDB(RA: number, declination: number): void {
+export function saveRADecDB(RA: number, declination: number): void {
   localStorage.setItem("RA", RA.toString());
   localStorage.setItem("declination", declination.toString());
 }
 
-export function fetchRaDecDB(): RADeclinationData {
+export function fetchRADecDB(): RADeclinationData {
   let RA = localStorage.getItem("RA");
   let dec = localStorage.getItem("declination");
   if (typeof RA === "string" && typeof dec === "string") {
@@ -51,6 +51,14 @@ export function fetchRaDecDB(): RADeclinationData {
   } else {
     return {};
   }
+}
+
+export function saveRADB(RA: number): void {
+  localStorage.setItem("RA", RA.toString());
+}
+
+export function saveDecDB(declination: number): void {
+  localStorage.setItem("declination", declination.toString());
 }
 
 export function saveBinningDB(value: number): void {

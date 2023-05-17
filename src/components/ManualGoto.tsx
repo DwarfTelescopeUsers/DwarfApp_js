@@ -3,7 +3,7 @@ import type { FormEvent } from "react";
 
 import { ConnectionContext } from "@/stores/ConnectionContext";
 import { wsURL, startGoto, startGotoCmd } from "@/lib/dwarf2_api";
-import { saveRaDecDB } from "@/db/db_utils";
+import { saveRADecDB } from "@/db/db_utils";
 
 export default function ExecuteGoto() {
   let connectionCtx = useContext(ConnectionContext);
@@ -17,7 +17,7 @@ export default function ExecuteGoto() {
 
     connectionCtx.setRA(formRa);
     connectionCtx.setDeclination(formDeclination);
-    saveRaDecDB(formRa, formDeclination);
+    saveRADecDB(formRa, formDeclination);
 
     updateTelescope(formRa, formDeclination);
   }
