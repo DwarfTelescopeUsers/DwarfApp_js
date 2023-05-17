@@ -4,6 +4,7 @@ import Link from "next/link";
 
 import { ConnectionContext } from "@/stores/ConnectionContext";
 import CameraSettings from "@/components/CameraSettings";
+import SetISPSettingsPhoto from "@/components/SetISPSettingsPhoto";
 import { useSetupConnection } from "@/hooks/useSetupConnection";
 import StatusBar from "@/components/shared/StatusBar";
 import Focus from "@/components/Focus";
@@ -76,6 +77,7 @@ export default function Photo() {
           ></button>
         </div>
         <div className="offcanvas-body">
+          <SetISPSettingsPhoto camera={telephotoCamera} />
           <CameraSettings />
           <hr />
           <Focus />
