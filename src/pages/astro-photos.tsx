@@ -98,7 +98,6 @@ export default function AstroPhoto() {
         </div>
         <div className="offcanvas-body">
           <SetISPSettings />
-          <Accordian component={<CameraStatus />} />
           <hr />
           <Focus />
           <hr />
