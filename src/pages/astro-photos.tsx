@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import { ConnectionContext } from "@/stores/ConnectionContext";
 import CameraSettings from "@/components/CameraSettings";
-import SetISPSettings from "@/components/SetISPSettings";
+import SetISPSettingsAstro from "@/components/SetISPSettingsAstro";
 import ManualGoto from "@/components/ManualGoto";
 import { useSetupConnection } from "@/hooks/useSetupConnection";
 import CalibrateGoto from "@/components/CalibrateGoto";
@@ -27,7 +27,7 @@ export default function AstroPhoto() {
         <Head>
           <title>Astro Photos</title>
         </Head>
-        <StatusBar />
+        <StatusBar mode="astro" />
 
         <h1>Astro Photos</h1>
 
@@ -45,7 +45,7 @@ export default function AstroPhoto() {
         <Head>
           <title>Astro Photos</title>
         </Head>
-        <StatusBar />
+        <StatusBar mode="astro" />
 
         <h1>Astro Photos</h1>
         <p>
@@ -61,7 +61,7 @@ export default function AstroPhoto() {
       <Head>
         <title>Setup Scope</title>
       </Head>
-      <StatusBar />
+      <StatusBar mode="astro" />
 
       <h1>Astro Photos</h1>
       {connectionCtx.connectionStatus}
@@ -97,7 +97,7 @@ export default function AstroPhoto() {
           ></button>
         </div>
         <div className="offcanvas-body">
-          <SetISPSettings camera={telephotoCamera} />
+          <SetISPSettingsAstro camera={telephotoCamera} />
           <CameraSettings />
           <hr />
           <Focus />
