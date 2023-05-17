@@ -66,6 +66,14 @@ export default function StatusBar(props: PropType) {
       </div>
     );
   } else {
-    return <div className="mb-2"></div>;
+    return (
+      <div className="mb-2">
+        <span>{connection}</span>
+        <span className="ms-4"> {coords}</span>
+        <br />
+        <span>Gain: {gain}</span>
+        <span className="ms-4">Exp: {exp}</span>
+      </div>
+    );
   }
 }

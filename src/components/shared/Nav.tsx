@@ -33,14 +33,36 @@ export default function Nav() {
               </Link>
             </li>
 
-            <li className="nav-item">
-              <Link
-                className="nav-link active"
-                aria-current="page"
-                href="/astro-photos"
+            <li className="nav-item dropdown">
+              <a
+                className="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
               >
-                Astro
-              </Link>
+                Imaging
+              </a>
+              <ul className="dropdown-menu">
+                <li>
+                  <Link
+                    className="dropdown-item"
+                    aria-current="page"
+                    href="/astro-photos"
+                  >
+                    Astro
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="dropdown-item"
+                    aria-current="page"
+                    href="/photos"
+                  >
+                    Photo
+                  </Link>
+                </li>
+              </ul>
             </li>
 
             <li className="nav-item">
